@@ -1,0 +1,449 @@
+/* ============================================
+   PETE Learning UX Case Study - Stylesheet
+   ============================================ */
+
+/* CSS Custom Properties (Variables)
+   ========================================== */
+:root {
+  /* Brand Colors */
+  --pete-purple: #5f4bb6;
+  --pete-green: #34c759;
+  --pete-green-dark: #2a9d48;
+  --pete-red: #ef476f;
+  --pete-yellow: #ffd166;
+  --pete-blue: #118ab2;
+
+  /* Neutral Colors */
+  --pete-gray-dark: #333;
+  --pete-gray-light: #f7f7f7;
+  --pete-gray-medium: #e5e7eb;
+}
+
+/* Base Styles
+   ========================================== */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  color: var(--pete-gray-dark);
+  overflow-x: hidden;
+}
+
+/* Gradient Text Effects
+   ========================================== */
+.text-gradient-purple {
+  background: linear-gradient(90deg, #8a23e9 0%, #5f4bb6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-green {
+  background: linear-gradient(90deg, var(--pete-green-dark) 0%, var(--pete-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Navigation
+   ========================================== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid var(--pete-gray-medium);
+}
+
+/* Chart Container
+   ========================================== */
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 40vh;
+  max-height: 450px;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05),
+              0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--pete-gray-medium);
+}
+
+/* Accordion Components
+   ========================================== */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}
+
+.accordion-item.open .accordion-arrow {
+  transform: rotate(180deg);
+}
+
+.accordion-arrow {
+  transition: transform 0.3s ease;
+}
+
+/* Prototype Browser Window
+   ========================================== */
+.prototype-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  border: 8px solid #1f2937;
+  border-radius: 12px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  background: #1f2937;
+}
+
+.prototype-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background: #374151;
+}
+
+.prototype-dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.prototype-address-bar {
+  flex: 1;
+  background: #1f2937;
+  color: #d1d5db;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-left: 1.25rem;
+  font-family: monospace;
+}
+
+.prototype-iframe-content {
+  width: 100%;
+  height: 75vh;
+  background: #fff;
+  border: 0;
+  display: block;
+}
+
+/* Progress Bars
+   ========================================== */
+.bar-container {
+  width: 100%;
+  background: var(--pete-gray-medium);
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 1.5rem;
+  border-radius: 0.25rem;
+  transition: width 1s ease-out;
+  text-align: right;
+  padding-right: 0.5rem;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+/* Slide Transitions
+   ========================================== */
+.slide-content {
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  position: absolute;
+  width: 100%;
+}
+
+.slide-content.hidden {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-content.prev {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slide-content.active {
+  transform: translateX(0);
+  opacity: 1;
+  position: relative;
+}
+
+/* Card Stack Component
+   ========================================== */
+.card-stack-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 600px;
+  margin: auto;
+}
+
+.process-card {
+  position: absolute;
+  width: 92%;
+  height: 500px;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--pete-gray-medium);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  left: 4%;
+  will-change: transform, opacity;
+  overflow: hidden;
+}
+
+/* Card Header with Gradient */
+.card-header {
+  background: linear-gradient(135deg, #8a23e9 0%, #5f4bb6 100%);
+  padding: 1.5rem 2rem;
+  min-height: 100px;
+}
+
+.card-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-header-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-header-green {
+  background: linear-gradient(135deg, #34c759 0%, #2a9d48 100%);
+}
+
+.card-header-blue {
+  background: linear-gradient(135deg, #118ab2 0%, #0d6e8f 100%);
+}
+
+.card-header-orange {
+  background: linear-gradient(135deg, #ffa94d 0%, #ff7b00 100%);
+}
+
+.card-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+/* Card Body */
+.card-body {
+  padding: 2rem;
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.card-subtitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+}
+
+/* Card stack layering - create depth effect */
+.process-card:nth-child(1) {
+  transform: translateY(0) scale(1);
+  z-index: 5;
+}
+
+.process-card:nth-child(2) {
+  transform: translateY(20px) scale(0.95);
+  z-index: 4;
+}
+
+.process-card:nth-child(3) {
+  transform: translateY(40px) scale(0.9);
+  z-index: 3;
+}
+
+.process-card:nth-child(4) {
+  transform: translateY(60px) scale(0.85);
+  z-index: 2;
+}
+
+/* Card exit animation */
+.process-card.exit {
+  transform: translateX(150%) rotate(8deg) !important;
+  opacity: 0 !important;
+}
+
+/* Progress Dots
+   ========================================== */
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.progress-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--pete-gray-medium);
+  transition: transform 0.2s ease, background 0.2s ease;
+  cursor: pointer;
+}
+
+.progress-dot.active {
+  background: var(--pete-purple);
+  transform: scale(1.25);
+}
+
+/* Dev Output (hidden by default)
+   ========================================== */
+#dev-test-output {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 9999;
+  background: #111827;
+  color: #e5e7eb;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  max-width: 360px;
+  line-height: 1.3;
+  display: none;
+}
+
+/* CTA Button Animations
+   ========================================== */
+.cta-animate {
+  position: relative;
+  animation: cta-bobble 6s ease-in-out infinite,
+             cta-glow 3.2s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform, box-shadow, filter;
+}
+
+.cta-animate:hover {
+  animation-play-state: running;
+  transform: translateY(-2px) scale(1.04);
+  filter: saturate(1.15);
+}
+
+.cta-animate:active {
+  transform: translateY(0) scale(0.98);
+  filter: saturate(1);
+}
+
+.cta-animate:focus-visible {
+  outline: 3px solid rgba(95, 75, 182, 0.6);
+  outline-offset: 3px;
+}
+
+/* CTA with initial nudge animation */
+.cta-animate.cta-nudge {
+  animation: cta-bobble 6s ease-in-out infinite,
+             cta-glow 3.2s ease-in-out infinite,
+             cta-wiggle-once 900ms ease 2.2s 1;
+}
+
+/* Keyframe Animations
+   ========================================== */
+
+/* Subtle floating bobble effect */
+@keyframes cta-bobble {
+  0% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(4px, -3px) rotate(-0.2deg);
+  }
+  40% {
+    transform: translate(0, -5px) rotate(0.2deg);
+  }
+  60% {
+    transform: translate(-4px, -2px) rotate(-0.2deg);
+  }
+  80% {
+    transform: translate(2px, 0) rotate(0.2deg);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Pulsing glow effect */
+@keyframes cta-glow {
+  0% {
+    box-shadow: 0 10px 20px rgba(95, 75, 182, 0.25),
+                0 0 0 0 rgba(95, 75, 182, 0);
+  }
+  50% {
+    box-shadow: 0 16px 28px rgba(95, 75, 182, 0.35),
+                0 0 0 6px rgba(95, 75, 182, 0.15);
+  }
+  100% {
+    box-shadow: 0 10px 20px rgba(95, 75, 182, 0.25),
+                0 0 0 0 rgba(95, 75, 182, 0);
+  }
+}
+
+/* Initial attention-grabbing wiggle */
+@keyframes cta-wiggle-once {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0);
+  }
+  15% {
+    transform: translate(6px, -2px) rotate(1deg);
+  }
+  30% {
+    transform: translate(-6px, -2px) rotate(-1deg);
+  }
+  45% {
+    transform: translate(5px, -1px) rotate(0.6deg);
+  }
+  60% {
+    transform: translate(-5px, -1px) rotate(-0.6deg);
+  }
+  75% {
+    transform: translate(3px, 0) rotate(0.3deg);
+  }
+}
+
+/* Accessibility: Respect user motion preferences
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  .cta-animate,
+  .cta-animate.cta-nudge {
+    animation: none;
+    transform: none;
+  }
+}
