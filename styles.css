@@ -216,10 +216,19 @@ body {
 .card-header {
   background: linear-gradient(135deg, #8a23e9 0%, #5f4bb6 100%);
   padding: 1.5rem 2rem;
+  min-height: 100px;
+}
+
+.card-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-header-top {
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 80px;
+  gap: 1rem;
 }
 
 .card-header-green {
@@ -235,11 +244,12 @@ body {
 }
 
 .card-number {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: white;
   line-height: 1;
   letter-spacing: -0.02em;
+  flex-shrink: 0;
 }
 
 /* Card Body */
@@ -250,16 +260,16 @@ body {
 .card-title {
   font-size: 1.75rem;
   font-weight: 700;
-  color: var(--pete-gray-dark);
-  margin-bottom: 0.5rem;
+  color: white;
   line-height: 1.2;
+  margin: 0;
 }
 
 .card-subtitle {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  color: var(--pete-purple);
-  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
 }
 
 /* Card stack layering - create depth effect */
