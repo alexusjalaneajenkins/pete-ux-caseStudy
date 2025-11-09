@@ -4,57 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UX Case Study: PETE Learning - From Generic to Invaluable</title>
+  <!-- External Libraries -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root { --pete-purple:#5f4bb6; --pete-green:#34c759; --pete-green-dark:#2a9d48; --pete-gray-dark:#333; --pete-gray-light:#f7f7f7; --pete-gray-medium:#e5e7eb; --pete-red:#ef476f; --pete-yellow:#ffd166; --pete-blue:#118ab2; }
-    body { font-family:"Poppins",sans-serif; background:#fff; color:var(--pete-gray-dark); overflow-x:hidden; }
-    .text-gradient-purple{background:linear-gradient(90deg,#8a23e9 0%,#5f4bb6 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .text-gradient-green{background:linear-gradient(90deg,var(--pete-green-dark) 0%,var(--pete-green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .sticky-nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(255,255,255,.8);border-bottom:1px solid var(--pete-gray-medium)}
-    .chart-container{position:relative;width:100%;max-width:800px;margin:0 auto;height:40vh;max-height:450px;padding:1rem;background:#fff;border-radius:.75rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.05),0 4px 6px -4px rgba(0,0,0,.05);border:1px solid var(--pete-gray-medium)}
-    .accordion-content{max-height:0;overflow:hidden;transition:max-height .3s ease-out}
-    .accordion-item.open .accordion-content{max-height:500px;transition:max-height .5s ease-in}
-    .accordion-item.open .accordion-arrow{transform:rotate(180deg)}
-    .accordion-arrow{transition:transform .3s ease}
-    .prototype-container{width:100%;max-width:1200px;margin:2rem auto;border:8px solid #1f2937;border-radius:12px;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);background:#1f2937}
-    .prototype-header{display:flex;align-items:center;padding:.75rem;background:#374151}
-    .prototype-dot{height:12px;width:12px;border-radius:50%;margin-right:6px}
-    .prototype-address-bar{flex:1;background:#1f2937;color:#d1d5db;padding:.5rem 1rem;border-radius:6px;font-size:.875rem;margin-left:1.25rem;font-family:monospace}
-    .prototype-iframe-content{width:100%;height:75vh;background:#fff;border:0;display:block}
-    .bar-container{width:100%;background:var(--pete-gray-medium);border-radius:.25rem;overflow:hidden}
-    .bar-fill{height:1.5rem;border-radius:.25rem;transition:width 1s ease-out;text-align:right;padding-right:.5rem;color:#fff;font-weight:600;font-size:.875rem;line-height:1.5rem}
-    .slide-content{transition:transform .5s ease-out,opacity .5s ease-out;position:absolute;width:100%}
-    .slide-content.hidden{transform:translateX(100%);opacity:0;pointer-events:none}
-    .slide-content.prev{transform:translateX(-100%);opacity:0;pointer-events:none}
-    .slide-content.active{transform:translateX(0);opacity:1;position:relative}
-    .card-stack-container{position:relative;width:100%;max-width:520px;height:600px;margin:auto}
-    .process-card{position:absolute;width:92%;height:500px;padding:2rem;background:#fff;border:1px solid var(--pete-gray-medium);border-radius:1.5rem;box-shadow:0 10px 25px -5px rgba(0,0,0,.1),0 10px 10px -5px rgba(0,0,0,.04);cursor:pointer;transition:transform .5s ease-in-out,opacity .5s ease-in-out;left:4%;will-change:transform,opacity}
-    .process-card:nth-child(1){transform:translateY(0) scale(1);z-index:5}
-    .process-card:nth-child(2){transform:translateY(20px) scale(.95);z-index:4}
-    .process-card:nth-child(3){transform:translateY(40px) scale(.9);z-index:3}
-    .process-card:nth-child(4){transform:translateY(60px) scale(.85);z-index:2}
-    .process-card.exit{transform:translateX(150%) rotate(8deg)!important;opacity:0!important}
-    .progress-dots{display:flex;justify-content:center;align-items:center;gap:.5rem;margin-top:1rem}
-    .progress-dot{width:10px;height:10px;border-radius:9999px;background:var(--pete-gray-medium);transition:transform .2s ease,background .2s ease}
-    .progress-dot.active{background:var(--pete-purple);transform:scale(1.25)}
-    #dev-test-output{position:fixed;bottom:12px;right:12px;z-index:9999;background:#111827;color:#e5e7eb;font-family:ui-monospace,monospace;font-size:12px;padding:8px 10px;border-radius:8px;box-shadow:0 10px 20px rgba(0,0,0,.25);max-width:360px;line-height:1.3;display:none}
-    .cta-animate{position:relative;animation:cta-bobble 6s ease-in-out infinite,cta-glow 3.2s ease-in-out infinite;transform-origin:center;will-change:transform,box-shadow,filter}
-    .cta-animate:hover{animation-play-state:running;transform:translateY(-2px) scale(1.04);filter:saturate(1.15)}
-    .cta-animate:active{transform:translateY(0) scale(.98);filter:saturate(1)}
-    .cta-animate:focus-visible{outline:3px solid rgba(95,75,182,.6);outline-offset:3px}
-    @keyframes cta-bobble{0%{transform:translate(0,0)}20%{transform:translate(4px,-3px) rotate(-.2deg)}40%{transform:translate(0,-5px) rotate(.2deg)}60%{transform:translate(-4px,-2px) rotate(-.2deg)}80%{transform:translate(2px,0) rotate(.2deg)}100%{transform:translate(0,0)}
-    }
-    @keyframes cta-glow{0%{box-shadow:0 10px 20px rgba(95,75,182,.25),0 0 0 0 rgba(95,75,182,0)}50%{box-shadow:0 16px 28px rgba(95,75,182,.35),0 0 0 6px rgba(95,75,182,.15)}100%{box-shadow:0 10px 20px rgba(95,75,182,.25),0 0 0 0 rgba(95,75,182,0)}
-    }
-    .cta-animate.cta-nudge{animation:cta-bobble 6s ease-in-out infinite,cta-glow 3.2s ease-in-out infinite,cta-wiggle-once 900ms ease 2.2s 1}
-    @keyframes cta-wiggle-once{0%,100%{transform:translate(0,0) rotate(0)}15%{transform:translate(6px,-2px) rotate(1deg)}30%{transform:translate(-6px,-2px) rotate(-1deg)}45%{transform:translate(5px,-1px) rotate(.6deg)}60%{transform:translate(-5px,-1px) rotate(-.6deg)}75%{transform:translate(3px,0) rotate(.3deg)}
-    }
-    @media(prefers-reduced-motion:reduce){.cta-animate,.cta-animate.cta-nudge{animation:none;transform:none}}
-  </style>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="antialiased">
+  <!-- ============================================
+       NAVIGATION
+       ============================================ -->
   <nav class="sticky-nav shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
@@ -68,7 +31,11 @@
       </div>
     </div>
   </nav>
+
   <main>
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
     <header class="bg-white py-28 sm:py-36">
       <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-gradient-purple leading-[1.05]"><span class="block">20 Hours → 2 Minutes:</span><span class="block mt-2">PETE's Secret to Invaluable Employees.</span></h1>
@@ -76,6 +43,10 @@
         <div class="mt-12 flex items-center justify-center gap-x-6"><a id="cta-prototype" href="#prototype" class="cta-animate rounded-xl bg-purple-600 px-6 py-4 text-base md:text-lg font-semibold text-white shadow-lg hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600 cta-nudge" aria-label="See the final prototype in action">🚀 See the Final Prototype in Action</a></div>
       </div>
     </header>
+
+    <!-- ============================================
+         MY PROCESS SECTION (Interactive Card Stack)
+         ============================================ -->
     <section id="role" class="py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center max-w-4xl mx-auto">
@@ -134,6 +105,10 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================================
+         PROBLEM SECTION (with Chart)
+         ============================================ -->
     <section id="problem" class="py-24 sm:py-32">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto">
@@ -167,25 +142,50 @@
         </div>
       </div>
     </section>
+
+    <!-- ============================================
+         SOLUTION SECTION (Accordions)
+         ============================================ -->
     <section id="solution" class="py-24 sm:py-32 bg-gray-50">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto"><p class="text-base font-semibold leading-7 text-purple-600">The Solution</p><h2 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">The &quot;Delightfully Simple&quot; Platform</h2><p class="mt-6 text-lg leading-8 text-gray-600">The new design had to be &quot;Wise-inspired&quot;: show, don't tell. It needed to be an interactive demo, not a static page. We used layered information (accordions) to answer the top 3 executive questions.</p></div>
         <div class="mt-16 max-w-3xl mx-auto space-y-4">
           <div class="accordion-item border border-gray-200 rounded-lg bg-white shadow-sm">
-            <button class="accordion-toggle flex justify-between items-center w-full p-5 text-left font-semibold text-lg text-gray-900"><span><span class="text-purple-600 mr-2">1.</span> Why is PETE better than Manual Training?</span><span class="accordion-arrow transform transition-transform duration-300">⬇️</span></button>
-            <div class="accordion-content px-5 pb-5 text-gray-600"><p class="mb-4">Manual training is expensive, slow, and unscalable. It's the &quot;mediocre&quot; 45% boost. PETE's AI delivers a 95% mastery rate in 2 minutes, turning a <strong>cost center</strong> into a <strong>profit driver</strong>.</p><div class="bar-container"><div id="bar1" class="bar-fill" style="width:0%;background:var(--pete-green)">95% Mastery</div></div><div class="bar-container mt-2"><div id="bar2" class="bar-fill" style="width:0%;background:var(--pete-red)">45% Mastery</div></div></div>
+            <button class="accordion-toggle flex justify-between items-center w-full p-5 text-left font-semibold text-lg text-gray-900" aria-expanded="false" aria-controls="accordion-1">
+              <span><span class="text-purple-600 mr-2">1.</span> Why is PETE better than Manual Training?</span>
+              <span class="accordion-arrow transform transition-transform duration-300" aria-hidden="true">⬇️</span>
+            </button>
+            <div id="accordion-1" class="accordion-content px-5 pb-5 text-gray-600">
+              <p class="mb-4">Manual training is expensive, slow, and unscalable. It's the &quot;mediocre&quot; 45% boost. PETE's AI delivers a 95% mastery rate in 2 minutes, turning a <strong>cost center</strong> into a <strong>profit driver</strong>.</p>
+              <div class="bar-container"><div id="bar1" class="bar-fill" style="width:0%;background:var(--pete-green)">95% Mastery</div></div>
+              <div class="bar-container mt-2"><div id="bar2" class="bar-fill" style="width:0%;background:var(--pete-red)">45% Mastery</div></div>
+            </div>
           </div>
           <div class="accordion-item border border-gray-200 rounded-lg bg-white shadow-sm">
-            <button class="accordion-toggle flex justify-between items-center w-full p-5 text-left font-semibold text-lg text-gray-900"><span><span class="text-purple-600 mr-2">2.</span> Why is PETE better than a &quot;Generic AI Bot&quot;?</span><span class="accordion-arrow transform transition-transform duration-300">⬇️</span></button>
-            <div class="accordion-content px-5 pb-5 text-gray-600"><p>Generic AI (like ChatGPT) is a tool. PETE is an <strong>ecosystem</strong>. It ingests your company's <em>specific tribal knowledge</em> to create adaptive, secure, and measurable training. Generic AI gives you a generic employee; PETE builds you an invaluable one.</p></div>
+            <button class="accordion-toggle flex justify-between items-center w-full p-5 text-left font-semibold text-lg text-gray-900" aria-expanded="false" aria-controls="accordion-2">
+              <span><span class="text-purple-600 mr-2">2.</span> Why is PETE better than a &quot;Generic AI Bot&quot;?</span>
+              <span class="accordion-arrow transform transition-transform duration-300" aria-hidden="true">⬇️</span>
+            </button>
+            <div id="accordion-2" class="accordion-content px-5 pb-5 text-gray-600">
+              <p>Generic AI (like ChatGPT) is a tool. PETE is an <strong>ecosystem</strong>. It ingests your company's <em>specific tribal knowledge</em> to create adaptive, secure, and measurable training. Generic AI gives you a generic employee; PETE builds you an invaluable one.</p>
+            </div>
           </div>
           <div class="accordion-item border border-gray-200 rounded-lg bg-white shadow-sm">
-            <button class="accordion-toggle flex justify-between items-center w-full p-5 text-left font-semibold text-lg text-gray-900"><span><span class="text-purple-600 mr-2">3.</span> What about Integration &amp; ROI (The CLO's Fear)?</span><span class="accordion-arrow transform transition-300">⬇️</span></button>
-            <div class="accordion-content px-5 pb-5 text-gray-600"><p>Our research showed this was the #1 pain point. The solution leads with &quot;No-Code Integration&quot; and &quot;Guaranteed ROI." The platform is designed to plug directly into existing HRIS systems, and the analytics dashboard ties learning directly to business KPIs—proving the <strong>&quot;invaluable&quot; leap</strong>.</p></div>
+            <button class="accordion-toggle flex justify-between items-center w-full p-5 text-left font-semibold text-lg text-gray-900" aria-expanded="false" aria-controls="accordion-3">
+              <span><span class="text-purple-600 mr-2">3.</span> What about Integration &amp; ROI (The CLO's Fear)?</span>
+              <span class="accordion-arrow transform transition-300" aria-hidden="true">⬇️</span>
+            </button>
+            <div id="accordion-3" class="accordion-content px-5 pb-5 text-gray-600">
+              <p>Our research showed this was the #1 pain point. The solution leads with &quot;No-Code Integration&quot; and &quot;Guaranteed ROI." The platform is designed to plug directly into existing HRIS systems, and the analytics dashboard ties learning directly to business KPIs—proving the <strong>&quot;invaluable&quot; leap</strong>.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ============================================
+         PROTOTYPE SECTION (Embedded Demo)
+         ============================================ -->
     <section id="prototype" class="py-24 sm:py-32 bg-gray-900">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto"><h2 class="text-4xl font-extrabold tracking-tight sm:text-5xl text-gradient-green">The Final Prototype</h2><p class="mt-6 text-lg leading-8 text-gray-300">This is the final deliverable: a fully interactive, &quot;Wise-inspired&quot; landing page. It's not a slide; it's a &quot;delightfully simple&quot; experience. It proves the 2-minute value proposition <em>by being</em> a 2-minute experience.</p></div>
@@ -204,44 +204,11 @@
       </div>
     </section>
   </main>
+
+  <!-- Dev Output (hidden by default) -->
   <div id="dev-test-output"></div>
-  <script>
-    const stack=document.querySelector('.card-stack-container');
-    const cards=Array.from(stack.querySelectorAll('.process-card'));
-    const dotsWrap=document.querySelector('.progress-dots');
-    const dots=Array.from(dotsWrap.querySelectorAll('.progress-dot'));
-    cards.forEach((c,i)=>c.dataset.step=i);
-    function layout(){
-      cards.forEach((c,idx)=>{c.style.transform=`translateY(${idx*20}px) scale(${1-idx*0.05})`;c.style.zIndex=String(cards.length-idx);c.classList.toggle('active',idx===0);c.classList.remove('exit');});
-      const active=Number(cards[0].dataset.step||0);
-      dots.forEach((d,i)=>d.classList.toggle('active',i===active));
-    }
-    function rotate(){
-      const top=cards[0];
-      top.classList.add('exit');
-      setTimeout(()=>{cards.push(cards.shift());stack.appendChild(top);layout();},300);
-    }
-    function handleCardClick(e){ if(cards[0]===e.currentTarget){ rotate(); } }
-    cards.forEach(c=>{ c.addEventListener('click',handleCardClick); c.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); handleCardClick({currentTarget:c}); } }); });
-    dots.forEach(d=>d.addEventListener('click',()=>{
-      const target=Number(d.dataset.index);
-      let pos=cards.findIndex(c=>Number(c.dataset.step)===target);
-      if(pos<=0){layout();return;}
-      let i=0;const step=()=>{if(i++<pos){rotate();setTimeout(step,340);}};step();
-    }));
-    layout();
-    let timer=setInterval(rotate,4000);
-    stack.addEventListener('mouseenter',()=>{clearInterval(timer);});
-    stack.addEventListener('mouseleave',()=>{timer=setInterval(rotate,4000);});
-    const ctx1=document.getElementById('talentMasteryChart');
-    if(ctx1){new Chart(ctx1,{type:'bar',data:{labels:['Replaceable','Manual Training','PETE Adaptive'],datasets:[{label:'Mastery %',data:[20,45,95],backgroundColor:['#9ca3af','#ef4444','#22c55e']}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100}}});}
-    const ctx2=document.getElementById('marketTrendsChart');
-    if(ctx2){new Chart(ctx2,{type:'line',data:{labels:['Q1','Q2','Q3','Q4'],datasets:[{label:'Adaptive Learning',data:[40,55,70,85],borderColor:'#5f4bb6',tension:.3},{label:'Static LMS',data:[65,60,58,55],borderColor:'#9ca3af',tension:.3}]},options:{responsive:true,plugins:{legend:{position:'bottom'}},scales:{y:{beginAtZero:true,max:100}}});}
-    const ctx3=document.getElementById('keywordDemandChart');
-    if(ctx3){new Chart(ctx3,{type:'doughnut',data:{labels:['Adaptive Learning Systems','$65.68 CPC','Predictive Analytics','Content Libraries'],datasets:[{data:[40,30,20,10],backgroundColor:['#22c55e','#5f4bb6','#f59e0b','#9ca3af']}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}});}
-    document.querySelectorAll('.accordion-toggle').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.accordion-item');item.classList.toggle('open');}));
-    const b1=document.getElementById('bar1');const b2=document.getElementById('bar2');
-    if(b1&&b2){setTimeout(()=>{b1.style.width='95%';b2.style.width='45%';},500);}
-  </script>
+
+  <!-- Main Application Script -->
+  <script src="script.js"></script>
 </body>
 </html>
