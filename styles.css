@@ -199,7 +199,7 @@ body {
   position: absolute;
   width: 92%;
   height: 500px;
-  padding: 2rem;
+  padding: 0;
   background: #fff;
   border: 1px solid var(--pete-gray-medium);
   border-radius: 1.5rem;
@@ -209,6 +209,57 @@ body {
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   left: 4%;
   will-change: transform, opacity;
+  overflow: hidden;
+}
+
+/* Card Header with Gradient */
+.card-header {
+  background: linear-gradient(135deg, #8a23e9 0%, #5f4bb6 100%);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80px;
+}
+
+.card-header-green {
+  background: linear-gradient(135deg, #34c759 0%, #2a9d48 100%);
+}
+
+.card-header-blue {
+  background: linear-gradient(135deg, #118ab2 0%, #0d6e8f 100%);
+}
+
+.card-header-orange {
+  background: linear-gradient(135deg, #ffa94d 0%, #ff7b00 100%);
+}
+
+.card-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Card Body */
+.card-body {
+  padding: 2rem;
+}
+
+.card-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--pete-gray-dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pete-purple);
+  margin-bottom: 0.5rem;
 }
 
 /* Card stack layering - create depth effect */
