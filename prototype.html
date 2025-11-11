@@ -1347,8 +1347,9 @@
         .calendar-body {
             padding: 32px;
             display: flex;
-            flex-direction: column;
-            gap: 24px;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 32px;
             max-height: none;
             overflow: visible;
             justify-content: center;
@@ -1356,6 +1357,13 @@
 
         .calendar-body.success-state {
             align-items: center;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .calendar-grid-container {
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         .calendar-month-header {
@@ -1471,13 +1479,18 @@
         }
 
         .time-slots-panel {
-            border-top: 1px solid #E5E7EB;
-            padding-top: 20px;
+            flex: 0 0 320px;
+            border-left: 1px solid #E5E7EB;
+            padding-left: 24px;
+            padding-top: 0;
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
         }
 
         .time-slots-header {
             margin-bottom: 16px;
-            text-align: center;
+            text-align: left;
         }
 
         .selected-date-label {
@@ -1494,7 +1507,7 @@
             font-weight: 700;
             font-size: 20px;
             color: #374151;
-            text-align: center;
+            text-align: left;
         }
 
         .time-slots-list {
@@ -1555,6 +1568,7 @@
         .time-slots-footer {
             padding-top: 20px;
             border-top: 1px solid #E5E7EB;
+            margin-top: auto;
         }
 
         .confirm-booking-button {
@@ -2095,7 +2109,33 @@
 
             .calendar-body {
                 padding: 20px;
-                gap: 16px;
+                gap: 24px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .calendar-grid-container,
+            .time-slots-panel {
+                width: 100%;
+            }
+
+            .time-slots-panel {
+                border-left: none;
+                border-top: 1px solid #E5E7EB;
+                padding-left: 0;
+                padding-top: 20px;
+            }
+
+            .time-slots-header {
+                text-align: center;
+            }
+
+            .selected-date-value {
+                text-align: center;
+            }
+
+            .time-slots-footer {
+                margin-top: 16px;
             }
 
             .calendar-day {
