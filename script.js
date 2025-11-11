@@ -119,19 +119,6 @@ function initCardStack() {
 
   // Initial layout
   layout();
-
-  // Auto-rotation timer
-  let autoRotateTimer = setInterval(rotate, 4000);
-
-  // Pause on hover
-  stack.addEventListener('mouseenter', () => {
-    clearInterval(autoRotateTimer);
-  });
-
-  // Resume on mouse leave
-  stack.addEventListener('mouseleave', () => {
-    autoRotateTimer = setInterval(rotate, 4000);
-  });
 }
 
 /* ==========================================
@@ -142,34 +129,160 @@ function initCardStack() {
  * Initialize Chart.js visualizations
  */
 function initCharts() {
-  // Chart 1: Talent Mastery Bar Chart
+  // Chart 1: Brand Visibility Comparison Chart
   const talentChart = document.getElementById('talentMasteryChart');
   if (talentChart) {
+    const ctx = talentChart.getContext('2d');
+
+    // Create gradients
+    const purpleGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    purpleGradient.addColorStop(0, '#8a23e9');
+    purpleGradient.addColorStop(1, '#5f4bb6');
+
+    const greenGradient = ctx.createLinearGradient(0, 0, 0, 400);
+    greenGradient.addColorStop(0, '#34C759');
+    greenGradient.addColorStop(1, '#2A9D48');
+
     new Chart(talentChart, {
       type: 'bar',
       data: {
-        labels: ['Replaceable', 'Manual Training', 'PETE Adaptive'],
+        labels: ['Articulate', 'Docebo', 'Cornerstone', 'Skillsoft', 'PETE'],
         datasets: [{
-          label: 'Mastery %',
-          data: [20, 45, 95],
-          backgroundColor: ['#9ca3af', '#ef4444', '#22c55e']
+          label: 'Brand Visibility Score',
+          data: [85, 78, 82, 75, 12],
+          backgroundColor: [purpleGradient, purpleGradient, purpleGradient, purpleGradient, greenGradient]
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: true,
+        layout: {
+          padding: {
+            top: 60,
+            right: 5,
+            bottom: 10,
+            left: 5
+          }
+        },
         plugins: {
+          title: {
+            display: true,
+            text: 'Brand Visibility: PETE vs. Competitors',
+            font: {
+              size: 20,
+              weight: 'bold',
+              family: 'Poppins, sans-serif'
+            },
+            color: '#374151',
+            padding: {
+              top: 5,
+              bottom: 10
+            }
+          },
           legend: {
             display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const labels = [
+                  '🏆 Recognition',
+                  '📊 Market Share',
+                  '🤝 Trust',
+                  '⏳ Legacy',
+                  '⚡ Innovation'
+                ];
+                return labels[context.dataIndex] + ': ' + context.parsed.y + '%';
+              }
+            }
           }
         },
         scales: {
           y: {
             beginAtZero: true,
-            max: 100
+            max: 100,
+            ticks: {
+              callback: function(value) {
+                return value + '%';
+              }
+            }
           }
         }
-      }
+      },
+      plugins: [{
+        afterDatasetsDraw: function(chart) {
+          const ctx = chart.ctx;
+          const emojis = ['🏆', '📊', '🤝', '⏳', '⚡'];
+          const labels = [
+            'Recognition',
+            'Market Share',
+            'Trust',
+            'Legacy',
+            'Innovation'
+          ];
+
+          chart.data.datasets.forEach(function(dataset, i) {
+            const meta = chart.getDatasetMeta(i);
+            meta.data.forEach(function(bar, index) {
+              const data = dataset.data[index];
+              const emoji = emojis[index];
+              const label = labels[index];
+
+              const x = bar.x;
+
+              // Special handling for PETE (index 4) - bar is too short for text
+              if (index === 4) {
+                // Draw red rounded rectangle callout above the bar
+                const rectWidth = 120;
+                const rectHeight = 60;
+                const rectX = x - rectWidth / 2;
+                const rectY = bar.y - 70;
+                const radius = 8;
+
+                // Draw rounded rectangle
+                ctx.fillStyle = '#ec4899';
+                ctx.beginPath();
+                ctx.roundRect(rectX, rectY, rectWidth, rectHeight, radius);
+                ctx.fill();
+
+                // Draw text inside pink rectangle
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                // Emoji
+                ctx.font = '18px Arial';
+                ctx.fillText(emoji, x, rectY + 15);
+
+                // Label
+                ctx.font = 'bold 10px Poppins, sans-serif';
+                ctx.fillText(label, x, rectY + 32);
+
+                // Percentage inside red rectangle
+                ctx.font = 'bold 16px Poppins, sans-serif';
+                ctx.fillText(data + '%', x, rectY + 48);
+              } else {
+                // Regular bars - text inside
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                // Draw emoji at top
+                ctx.font = '20px Arial';
+                ctx.fillText(emoji, x, bar.y + 18);
+
+                // Draw label text below emoji
+                ctx.font = 'bold 10px Poppins, sans-serif';
+                ctx.fillText(label, x, bar.y + 38);
+
+                // Draw percentage at bottom
+                ctx.font = 'bold 16px Poppins, sans-serif';
+                ctx.fillText(data + '%', x, bar.y + 56);
+              }
+            });
+          });
+        }
+      }]
     });
   }
 

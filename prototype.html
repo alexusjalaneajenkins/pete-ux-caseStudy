@@ -1274,6 +1274,8 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
+            padding: 32px 16px;
+            overflow: hidden;
         }
 
         .modal-overlay.active {
@@ -1285,10 +1287,12 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            width: 90%;
-            max-height: 85vh;
+            width: min(860px, 100%);
+            max-width: 860px;
+            max-height: min(640px, 90vh);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
             transform: scale(0.9) translateY(30px);
             opacity: 0;
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1346,10 +1350,25 @@
         .calendar-body {
             padding: 32px;
             display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            gap: 32px;
+            justify-content: center;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .calendar-body.success-state {
+            align-items: center;
             flex-direction: column;
             gap: 24px;
-            max-height: calc(85vh - 120px);
-            overflow-y: auto;
+            justify-content: center;
+            padding: 36px 32px;
+        }
+
+        .calendar-grid-container {
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         .calendar-month-header {
@@ -1465,13 +1484,18 @@
         }
 
         .time-slots-panel {
-            border-top: 1px solid #E5E7EB;
-            padding-top: 20px;
+            flex: 0 0 320px;
+            border-left: 1px solid #E5E7EB;
+            padding-left: 24px;
+            padding-top: 0;
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
         }
 
         .time-slots-header {
             margin-bottom: 16px;
-            text-align: center;
+            text-align: left;
         }
 
         .selected-date-label {
@@ -1488,7 +1512,7 @@
             font-weight: 700;
             font-size: 20px;
             color: #374151;
-            text-align: center;
+            text-align: left;
         }
 
         .time-slots-list {
@@ -1549,6 +1573,7 @@
         .time-slots-footer {
             padding-top: 20px;
             border-top: 1px solid #E5E7EB;
+            margin-top: auto;
         }
 
         .confirm-booking-button {
@@ -1581,19 +1606,28 @@
             opacity: 0.6;
         }
 
+        .calendar-success-panel {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
         .calendar-success {
-            padding: 60px 32px;
+            padding: 32px 28px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 18px;
+            width: min(500px, 100%);
+            margin: 0 auto;
         }
 
         .success-animation {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 24px;
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 12px;
             animation: successPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -1613,7 +1647,7 @@
             font-weight: 700;
             font-size: 32px;
             color: #374151;
-            margin-bottom: 16px;
+            margin: 0;
         }
 
         .success-details {
@@ -1621,7 +1655,7 @@
             font-size: 17px;
             line-height: 26px;
             color: #6B7280;
-            margin: 0 auto 24px;
+            margin: 0 auto;
             text-align: center;
             max-width: 500px;
         }
@@ -1631,7 +1665,7 @@
             border: 2px solid #34c759;
             border-radius: 12px;
             padding: 20px;
-            margin-bottom: 24px;
+            margin: 0 auto 12px;
             text-align: left;
             max-width: 400px;
             margin-left: auto;
@@ -1662,7 +1696,15 @@
             display: flex;
             gap: 12px;
             justify-content: center;
-            align-items: center;
+            align-items: stretch;
+            width: 100%;
+            flex-wrap: wrap;
+            padding-bottom: 4px;
+        }
+
+        .success-actions button {
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         .download-calendar-button {
@@ -2074,7 +2116,6 @@
 
             .calendar-widget {
                 width: 95%;
-                max-height: 90vh;
             }
 
             .calendar-header {
@@ -2087,7 +2128,38 @@
 
             .calendar-body {
                 padding: 20px;
-                gap: 16px;
+                gap: 24px;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+            }
+
+            .calendar-body.success-state {
+                padding: 36px 24px;
+            }
+
+            .calendar-grid-container,
+            .time-slots-panel {
+                width: 100%;
+            }
+
+            .time-slots-panel {
+                border-left: none;
+                border-top: 1px solid #E5E7EB;
+                padding-left: 0;
+                padding-top: 20px;
+            }
+
+            .time-slots-header {
+                text-align: center;
+            }
+
+            .selected-date-value {
+                text-align: center;
+            }
+
+            .time-slots-footer {
+                margin-top: 16px;
             }
 
             .calendar-day {
@@ -2107,6 +2179,10 @@
             .confirm-booking-button {
                 height: 52px;
                 font-size: 16px;
+            }
+
+            .calendar-success {
+                padding: 32px 20px;
             }
 
             .success-actions {
@@ -2645,13 +2721,18 @@
                     </div>
                 </div>
             `;
-            
+
             document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
+
+            const calendarBodyEl = document.getElementById('calendarBody');
+            if (calendarBodyEl) {
+                calendarBodyEl.classList.remove('success-state');
+            }
+
             setTimeout(() => {
                 document.getElementById('calendarModal').classList.add('active');
             }, 10);
-            
+
             document.getElementById('calendarModal').addEventListener('click', function(e) {
                 if (e.target === this) {
                     closeCalendarModal();
@@ -2802,43 +2883,46 @@
                 date: selectedDate,
                 time: selectedTime
             };
-            
+
+            calendarBody.classList.add('success-state');
             calendarBody.innerHTML = `
-                <div class="calendar-success">
-                    <svg class="success-animation" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="60" cy="60" r="55" fill="#34c759" opacity="0.2"/>
-                        <circle cx="60" cy="60" r="45" fill="#34c759"/>
-                        <path d="M35 60 L50 75 L85 40" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    
-                    <h2 class="success-title">Demo Booked!</h2>
-                    <p class="success-details">
-                        We've sent a confirmation email to <strong>${formData.email}</strong> with all the details.
-                    </p>
-                    
-                    <div class="success-booking-info">
-                        <div class="booking-info-row">
-                            <i class="far fa-calendar booking-info-icon"></i>
-                            <span><strong>Date:</strong> ${formData.date}</span>
+                <div class="calendar-success-panel">
+                    <div class="calendar-success">
+                        <svg class="success-animation" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="60" cy="60" r="55" fill="#34c759" opacity="0.2"/>
+                            <circle cx="60" cy="60" r="45" fill="#34c759"/>
+                            <path d="M35 60 L50 75 L85 40" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        <h2 class="success-title">Demo Booked!</h2>
+                        <p class="success-details">
+                            We've sent a confirmation email to <strong>${formData.email}</strong> with all the details.
+                        </p>
+
+                        <div class="success-booking-info">
+                            <div class="booking-info-row">
+                                <i class="far fa-calendar booking-info-icon"></i>
+                                <span><strong>Date:</strong> ${formData.date}</span>
+                            </div>
+                            <div class="booking-info-row">
+                                <i class="far fa-clock booking-info-icon"></i>
+                                <span><strong>Time:</strong> ${formData.time} EST</span>
+                            </div>
+                            <div class="booking-info-row">
+                                <i class="far fa-user booking-info-icon"></i>
+                                <span><strong>Duration:</strong> 30 minutes</span>
+                            </div>
                         </div>
-                        <div class="booking-info-row">
-                            <i class="far fa-clock booking-info-icon"></i>
-                            <span><strong>Time:</strong> ${formData.time} EST</span>
+
+                        <div class="success-actions">
+                            <button class="download-calendar-button" onclick="downloadCalendarEvent()">
+                                <i class="far fa-calendar-plus"></i>
+                                <span>Add to Calendar</span>
+                            </button>
+                            <button class="close-modal-button" onclick="closeCalendarModal()">
+                                Done
+                            </button>
                         </div>
-                        <div class="booking-info-row">
-                            <i class="far fa-user booking-info-icon"></i>
-                            <span><strong>Duration:</strong> 30 minutes</span>
-                        </div>
-                    </div>
-                    
-                    <div class="success-actions">
-                        <button class="download-calendar-button" onclick="downloadCalendarEvent()">
-                            <i class="far fa-calendar-plus"></i>
-                            <span>Add to Calendar</span>
-                        </button>
-                        <button class="close-modal-button" onclick="closeCalendarModal()">
-                            Done
-                        </button>
                     </div>
                 </div>
             `;
