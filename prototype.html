@@ -1274,6 +1274,8 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.4s ease;
+            padding: 40px 20px;
+            overflow-y: auto;
         }
 
         .modal-overlay.active {
@@ -1287,7 +1289,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             width: 90%;
-            max-height: 85vh;
             overflow: hidden;
             transform: scale(0.9) translateY(30px);
             opacity: 0;
@@ -1348,8 +1349,13 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
-            max-height: calc(85vh - 120px);
-            overflow-y: auto;
+            max-height: none;
+            overflow: visible;
+            justify-content: center;
+        }
+
+        .calendar-body.success-state {
+            align-items: center;
         }
 
         .calendar-month-header {
@@ -1588,6 +1594,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 24px;
+            max-width: 520px;
+            margin: 0 auto;
         }
 
         .success-animation {
@@ -2074,7 +2083,6 @@
 
             .calendar-widget {
                 width: 95%;
-                max-height: 90vh;
             }
 
             .calendar-header {
@@ -2645,13 +2653,18 @@
                     </div>
                 </div>
             `;
-            
+
             document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
+
+            const calendarBodyEl = document.getElementById('calendarBody');
+            if (calendarBodyEl) {
+                calendarBodyEl.classList.remove('success-state');
+            }
+
             setTimeout(() => {
                 document.getElementById('calendarModal').classList.add('active');
             }, 10);
-            
+
             document.getElementById('calendarModal').addEventListener('click', function(e) {
                 if (e.target === this) {
                     closeCalendarModal();
@@ -2802,7 +2815,8 @@
                 date: selectedDate,
                 time: selectedTime
             };
-            
+
+            calendarBody.classList.add('success-state');
             calendarBody.innerHTML = `
                 <div class="calendar-success">
                     <svg class="success-animation" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
