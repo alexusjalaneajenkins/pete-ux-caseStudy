@@ -1311,6 +1311,10 @@
             position: relative;
         }
 
+        .calendar-widget.success-mode .calendar-header {
+            display: none;
+        }
+
         .calendar-close {
             position: absolute;
             top: 16px;
@@ -1356,6 +1360,12 @@
             justify-content: center;
             flex: 1;
             min-height: 0;
+        }
+
+        .calendar-widget.success-mode .calendar-body {
+            padding: 48px 32px;
+            align-items: center;
+            justify-content: center;
         }
 
         .calendar-body.success-state {
@@ -2738,6 +2748,9 @@
 
             document.body.insertAdjacentHTML('beforeend', modalHTML);
 
+            const calendarWidgetEl = document.querySelector('.calendar-widget');
+            calendarWidgetEl?.classList.remove('success-mode');
+
             const calendarBodyEl = document.getElementById('calendarBody');
             if (calendarBodyEl) {
                 calendarBodyEl.classList.remove('success-state');
@@ -2899,6 +2912,8 @@
             };
 
             calendarBody.classList.add('success-state');
+            const calendarWidgetEl = document.querySelector('.calendar-widget');
+            calendarWidgetEl?.classList.add('success-mode');
             calendarBody.innerHTML = `
                 <div class="calendar-success-panel">
                     <div class="calendar-success">
