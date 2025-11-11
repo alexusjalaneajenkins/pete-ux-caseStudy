@@ -1610,24 +1610,28 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            padding: 36px 0;
         }
 
         .calendar-success {
-            padding: 32px 28px;
+            padding: 40px 36px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 18px;
-            width: min(500px, 100%);
+            gap: 20px;
+            width: min(420px, calc(100% - 96px));
             margin: 0 auto;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
         }
 
         .success-animation {
-            width: 88px;
-            height: 88px;
-            margin: 0 auto 12px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 8px;
             animation: successPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
@@ -1652,22 +1656,23 @@
 
         .success-details {
             font-family: 'Archivo', sans-serif;
-            font-size: 17px;
-            line-height: 26px;
+            font-size: 16px;
+            line-height: 24px;
             color: #6B7280;
             margin: 0 auto;
             text-align: center;
-            max-width: 500px;
+            max-width: 360px;
         }
 
         .success-booking-info {
             background: rgba(52, 199, 89, 0.1);
             border: 2px solid #34c759;
             border-radius: 12px;
-            padding: 20px;
+            padding: 18px;
             margin: 0 auto 12px;
             text-align: left;
-            max-width: 400px;
+            width: 100%;
+            max-width: 360px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -1694,16 +1699,18 @@
 
         .success-actions {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             justify-content: center;
             align-items: stretch;
             width: 100%;
+            max-width: 360px;
             flex-wrap: wrap;
-            padding-bottom: 4px;
+            margin: 0 auto;
+            padding-bottom: 0;
         }
 
         .success-actions button {
-            flex: 1 1 0;
+            flex: 1 1 160px;
             min-width: 0;
         }
 
@@ -2181,13 +2188,20 @@
                 font-size: 16px;
             }
 
+            .calendar-success-panel {
+                padding: 24px 0;
+            }
+
             .calendar-success {
                 padding: 32px 20px;
+                width: calc(100% - 40px);
+                max-width: 360px;
             }
 
             .success-actions {
                 flex-direction: column;
                 width: 100%;
+                max-width: 100%;
             }
 
             .download-calendar-button,
