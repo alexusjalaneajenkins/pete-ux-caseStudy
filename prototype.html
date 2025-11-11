@@ -1,0 +1,2897 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETE - Transform Generic Employees Into Invaluable Talent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&amp;family=Archivo:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            color: #374151;
+            overflow-x: hidden;
+        }
+
+        /* Navigation - Perfect Center Alignment */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            background: linear-gradient(135deg, #5f4bb6 0%, #4a3a92 100%);
+            backdrop-filter: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: background 0.3s ease, border-bottom 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #E5E7EB;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 64px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            z-index: 10;
+            position: relative;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .nav-header.scrolled .logo-text {
+            color: #5f4bb6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .nav-link {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            cursor: pointer;
+            opacity: 0.95;
+        }
+
+        .nav-link:hover {
+            opacity: 1;
+            color: #34c759;
+        }
+
+        .nav-header.scrolled .nav-link {
+            color: #374151;
+        }
+
+        .nav-header.scrolled .nav-link:hover {
+            color: #5f4bb6;
+        }
+
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 72px;
+            left: 0;
+            width: 280px;
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(95, 75, 182, 0.12);
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            transition: all 0.2s ease-out;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            height: 48px;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #374151;
+            text-decoration: none;
+            transition: background 0.15s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(95, 75, 182, 0.08);
+        }
+
+        .dropdown-icon {
+            width: 24px;
+            height: 24px;
+            color: #5f4bb6;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        .nav-signin {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease, opacity 0.3s ease;
+            opacity: 0.95;
+        }
+
+        .nav-signin:hover {
+            opacity: 1;
+            color: #34c759;
+        }
+
+        .nav-header.scrolled .nav-signin {
+            color: #374151;
+        }
+
+        .nav-header.scrolled .nav-signin:hover {
+            color: #5f4bb6;
+        }
+
+        .btn-primary {
+            height: 56px;
+            padding: 0 24px;
+            background: white;
+            color: #5f4bb6;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 17px;
+            border: 2px solid white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .nav-header.scrolled .btn-primary {
+            background: #34c759;
+            color: white;
+            border: none;
+        }
+
+        .nav-header.scrolled .btn-primary:hover {
+            background: #2fb350;
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-bar {
+            width: 24px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-header.scrolled .hamburger-bar {
+            background: #374151;
+        }
+
+        .mobile-menu-toggle.active .hamburger-bar:nth-child(1) {
+            transform: rotate(45deg) translateY(9px);
+        }
+
+        .mobile-menu-toggle.active .hamburger-bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active .hamburger-bar:nth-child(3) {
+            transform: rotate(-45deg) translateY(-9px);
+        }
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85vw;
+            max-width: 320px;
+            height: 100%;
+            background: white;
+            box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 80px 24px 32px;
+        }
+
+        .mobile-nav-drawer.active {
+            right: 0;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-nav-link {
+            min-height: 48px;
+            padding: 14px 16px;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            color: #374151;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .mobile-nav-link:active {
+            background: rgba(95, 75, 182, 0.08);
+        }
+
+        .mobile-dropdown-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 48px;
+            padding: 14px 16px;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            color: #374151;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+        }
+
+        .mobile-dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-dropdown-content.active {
+            max-height: 300px;
+        }
+
+        .mobile-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 44px;
+            padding: 12px 16px 12px 32px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 16px;
+            color: #374151;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.15s ease;
+        }
+
+        .mobile-dropdown-item:active {
+            background: rgba(95, 75, 182, 0.08);
+        }
+
+        .mobile-nav-actions {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mobile-nav-signin {
+            min-height: 48px;
+            padding: 14px;
+            text-align: center;
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: #5f4bb6;
+            text-decoration: none;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mobile-nav-signin:active {
+            border-color: #5f4bb6;
+            background: rgba(95, 75, 182, 0.05);
+        }
+
+        /* Hero Section - Compact Above-Fold Design */
+        .hero-section {
+            margin-top: 72px;
+            background: linear-gradient(135deg, #5f4bb6 0%, #4a3a92 100%);
+            padding: 48px 64px 80px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,%3Csvg width="100" height="100" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /%3E%3C/filter%3E%3Crect width="100" height="100" filter="url(https://storage.googleapis.com/forge-sites/f1aba258653536f8e234317954e72e64a61eea4e933e97deef29940e1471d1c1.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=164061697651-compute%40developer.gserviceaccount.com%2F20251110%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20251110T230047Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&response-access-control-allow-origin=https%3A%2F%2Fforge.moonchild.ai&X-Goog-Signature=30e9dc7781d56be21979b1438f2950457a530b9afd5523fb6f4c9cbc33300fa0fb61371c5cd72c5ad418e768b2e56452720add40e849d2f75e76b6df011de828a01334f26e0c3e6c5e463e7d4a8a593d18c7b009674862a085505385aa293de3a3caf82f2351ceea71bb0b937c60ed088d8328255726ecb9158473e3764a6ff62b05766a04253216c791db22c6b103c60b604848d4f62cd7ae8b2abc3b3762d8b0ee1768abeafaf9f791c748dcbb44e8876ad081c14c9a1e3fc8f9104a67c1405dcf33cc0c40292daff7209a6f47c1a6463e0113487b3b4af391ffb603419442b7415946cd8aa0d10be32004e83983ebbb45d2b466e6c066ef159314fe1c6dff)" opacity="0.03"/%3E%3C/svg%3E');
+            opacity: 0.3;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            text-align: center;
+        }
+
+        .hero-headline {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 42px;
+            line-height: 52px;
+            color: white;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto 28px;
+        }
+
+        .hero-mediocrity {
+            position: relative;
+            display: inline;
+        }
+
+        .hero-invaluable {
+            color: #34c759;
+            text-shadow: 0 0 20px rgba(52, 199, 89, 0.4);
+        }
+
+        .hero-animation-stage {
+            width: 800px;
+            height: 380px;
+            margin: 0 auto 28px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(95, 75, 182, 0.2) 0%, rgba(74, 58, 146, 0.3) 100%);
+            border-radius: 16px;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .pdf-document {
+            position: absolute;
+            left: 15%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 108px;
+            opacity: 0;
+            animation: pdfAppear 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                       pdfPulse 2s ease-in-out 1.5s infinite,
+                       pdfDimOut 1s ease-out 6s forwards;
+        }
+
+        @keyframes pdfAppear {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.85);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes pdfPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        @keyframes pdfDimOut {
+            to { opacity: 0.4; }
+        }
+
+        .playbook-label {
+            position: absolute;
+            bottom: -38px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            white-space: nowrap;
+            padding: 6px 14px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 16px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            animation: labelFadeIn 0.8s ease-out 1s forwards;
+        }
+
+        @keyframes labelFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .ai-processor {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 126px;
+            height: 126px;
+            opacity: 0;
+            animation: processorActivate 1s ease-out 1.5s forwards,
+                       processorFadeOut 1s ease-out 6.5s forwards;
+        }
+        @keyframes processorActivate {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes processorFadeOut {
+            to {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+        }
+
+        .ai-processor svg {
+            width: 100%;
+            height: 100%;
+            animation: rotateProcessorSVG 3s linear 2s infinite;
+        }
+
+        @keyframes rotateProcessorSVG {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .ai-label {
+            position: absolute;
+            bottom: -48px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: #34c759;
+            white-space: nowrap;
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            animation: labelFadeIn 0.8s ease-out 2s forwards;
+            z-index: 5;
+        }
+
+        .data-stream {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, rgba(52, 199, 89, 0.3) 0%, rgba(52, 199, 89, 0.8) 100%);
+            opacity: 0;
+            animation: dataFlow 1.5s ease-in-out 2s forwards;
+        }
+
+        @keyframes dataFlow {
+            0% {
+                opacity: 0;
+                width: 0%;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.8;
+                width: 25%;
+            }
+        }
+
+        .time-badge {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 7px 18px;
+            background: rgba(52, 199, 89, 0.2);
+            border: 2px solid #34c759;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #34c759;
+            white-space: nowrap;
+            opacity: 0;
+            animation: badgeAppear 0.6s ease-out 2.5s forwards;
+            z-index: 10;
+        }
+
+        @keyframes badgeAppear {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+        }
+
+        .training-badge {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 7px 16px;
+            background: #5f4bb6;
+            border: 2px solid white;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            white-space: nowrap;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: badgeAppear 0.8s ease-out 5s forwards;
+            z-index: 10;
+        }
+
+        .employee-generic {
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            transform: translate(50%, -50%);
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+            animation: genericEmployeeLifecycle 8s ease-in-out forwards;
+        }
+
+        @keyframes genericEmployeeLifecycle {
+            0%, 43.75% {
+                opacity: 0;
+                transform: translate(50%, -45%);
+            }
+            53.75% {
+                opacity: 1;
+                transform: translate(50%, -50%);
+            }
+            78.75% {
+                opacity: 1;
+                transform: translate(50%, -50%);
+            }
+            85% {
+                opacity: 0;
+                transform: translate(50%, -50%);
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .generic-label {
+            position: absolute;
+            bottom: -38px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: white;
+            white-space: nowrap;
+            padding: 6px 14px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 16px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            animation: genericLabelLifecycle 8s ease-out forwards;
+        }
+
+        @keyframes genericLabelLifecycle {
+            0%, 50% { opacity: 0; }
+            52.5% { opacity: 1; }
+            81.25% { opacity: 1; }
+            85% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        .transformation-beam {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 8px;
+            background: linear-gradient(90deg, rgba(52, 199, 89, 0.8) 0%, rgba(52, 199, 89, 0.3) 100%);
+            box-shadow: 0 0 16px rgba(52, 199, 89, 0.6);
+            opacity: 0;
+            animation: beamExtend 2s ease-out 4.5s forwards;
+        }
+
+        @keyframes beamExtend {
+            0% {
+                opacity: 0;
+                width: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 1;
+                width: 30%;
+            }
+        }
+
+        .employee-invaluable {
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            width: 100px;
+            height: 100px;
+            opacity: 0;
+            transform: translate(50%, -50%) scale(0.9) rotate(-5deg);
+            animation: invaluableEmployeeLifecycle 8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                       invaluableBreathing 3s ease-in-out 8s infinite;
+        }
+
+        @keyframes invaluableEmployeeLifecycle {
+            0%, 78.75% {
+                opacity: 0;
+                transform: translate(50%, -50%) scale(0.9) rotate(-5deg);
+            }
+            85% {
+                opacity: 1;
+                transform: translate(50%, -50%) scale(1.15) rotate(2deg);
+            }
+            87.5% {
+                opacity: 1;
+                transform: translate(50%, -50%) scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(50%, -50%) scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes invaluableBreathing {
+            0%, 100% {
+                transform: translate(50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(50%, -50%) scale(1.02);
+            }
+        }
+
+        .invaluable-label {
+            position: absolute;
+            bottom: -38px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #34c759;
+            white-space: nowrap;
+            padding: 6px 14px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            animation: labelFadeIn 0.8s ease-out 7s forwards;
+        }
+
+        .achievement-badge {
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            width: 32px;
+            height: 32px;
+            opacity: 0;
+        }
+
+        .badge-smart {
+            animation: badgeSmartAppear 1s ease-out 7s forwards,
+                       orbitSmart 12s linear 8s infinite;
+        }
+
+        @keyframes badgeSmartAppear {
+            0% {
+                opacity: 0;
+                transform: translate(50%, -50%) rotate(0deg) translateX(0) scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(50%, -50%) rotate(0deg) translateX(60px) scale(1);
+            }
+        }
+
+        @keyframes orbitSmart {
+            from {
+                transform: translate(50%, -50%) rotate(0deg) translateX(60px) scale(1);
+            }
+            to {
+                transform: translate(50%, -50%) rotate(360deg) translateX(60px) scale(1);
+            }
+        }
+
+        .badge-creative {
+            animation: badgeCreativeAppear 1s ease-out 7.3s forwards,
+                       orbitCreative 12s linear 8.3s infinite;
+        }
+
+        @keyframes badgeCreativeAppear {
+            0% {
+                opacity: 0;
+                transform: translate(50%, -50%) rotate(120deg) translateX(0) scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(50%, -50%) rotate(120deg) translateX(60px) scale(1);
+            }
+        }
+
+        @keyframes orbitCreative {
+            from {
+                transform: translate(50%, -50%) rotate(120deg) translateX(60px) scale(1);
+            }
+            to {
+                transform: translate(50%, -50%) rotate(480deg) translateX(60px) scale(1);
+            }
+        }
+
+        .badge-datadriven {
+            animation: badgeDataAppear 1s ease-out 7.6s forwards,
+                       orbitData 12s linear 8.6s infinite;
+        }
+
+        @keyframes badgeDataAppear {
+            0% {
+                opacity: 0;
+                transform: translate(50%, -50%) rotate(240deg) translateX(0) scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(50%, -50%) rotate(240deg) translateX(60px) scale(1);
+            }
+        }
+
+        @keyframes orbitData {
+            from {
+                transform: translate(50%, -50%) rotate(240deg) translateX(60px) scale(1);
+            }
+            to {
+                transform: translate(50%, -50%) rotate(600deg) translateX(60px) scale(1);
+            }
+        }
+
+        .success-metrics-final {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 36px;
+            opacity: 0;
+            animation: metricsFinalAppear 1s ease-out 7.5s forwards;
+        }
+
+        @keyframes metricsFinalAppear {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .metric-item-final {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .metric-value-final {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 26px;
+            color: #34c759;
+            text-shadow: 0 0 16px rgba(52, 199, 89, 0.5);
+        }
+
+        .metric-label-final {
+            font-family: 'Archivo', sans-serif;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.9);
+            white-space: nowrap;
+        }
+
+        .hero-subheadline {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 400;
+            font-size: 19px;
+            line-height: 29px;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto 24px;
+        }
+
+        .hero-cta {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            animation: ctaFadeIn 1s ease-out 7.5s forwards;
+        }
+
+        @keyframes ctaFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .btn-secondary {
+            height: 48px;
+            padding: 0 24px;
+            background: transparent;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 17px;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        .btn-secondary.prominent {
+            animation: ctaTransform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes ctaTransform {
+            0% {
+                height: 48px;
+                background: transparent;
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                font-size: 17px;
+            }
+            40% {
+                transform: scale(1.1);
+            }
+            100% {
+                height: 56px;
+                padding: 0 30px;
+                background: #34c759;
+                border: none;
+                font-size: 19px;
+                font-weight: 700;
+                transform: scale(1.05);
+                box-shadow: 0 8px 32px rgba(52, 199, 89, 0.4);
+            }
+        }
+
+        .btn-secondary.prominent:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 12px 40px rgba(52, 199, 89, 0.5);
+            background: #2fb350;
+        }
+
+        .chevron-bounce {
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        /* Trust Bar */
+        .trust-section {
+            background: white;
+            padding: 64px;
+            border-top: 1px solid #E5E7EB;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .trust-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-title {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #6B7280;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 32px;
+        }
+
+        .logo-marquee {
+            overflow: hidden;
+            height: 64px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-track {
+            display: flex;
+            gap: 80px;
+            animation: scrollMarquee 40s linear infinite;
+        }
+
+        .logo-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .client-logo {
+            height: 64px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            width: 250px;
+        }
+
+        .client-logo:hover {
+            filter: grayscale(0%);
+            opacity: 0.8;
+            transform: scale(1.08);
+        }
+
+        /* Signup Form Section */
+        .signup-section {
+            background: #F8F9FA;
+            padding: 96px 64px;
+            scroll-margin-top: 72px;
+        }
+
+        .signup-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .signup-headline {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 48px;
+            line-height: 56px;
+            color: #374151;
+            max-width: 900px;
+            margin: 0 auto 16px;
+        }
+
+        .time-emphasis {
+            color: #34c759;
+            font-weight: 700;
+        }
+
+        .signup-subheadline {
+            font-family: 'Archivo', sans-serif;
+            font-size: 20px;
+            line-height: 30px;
+            color: #6B7280;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 64px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .form-card:hover {
+            border-color: rgba(95, 75, 182, 0.1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field.full-width,
+        .form-field.company-field,
+        .form-field.role-field,
+        .form-field.team-size-field {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            color: #374151;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-label .required {
+            color: #EF4444;
+            margin-left: 4px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            height: 56px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 16px;
+            color: #374151;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #5f4bb6;
+            box-shadow: 0 0 0 3px rgba(95, 75, 182, 0.1);
+        }
+
+        .form-input.error {
+            border-color: #EF4444;
+        }
+
+        .form-input.success,
+        .form-select.success {
+            border-color: #34c759;
+        }
+
+        .form-textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .error-message {
+            font-family: 'Archivo', sans-serif;
+            font-size: 14px;
+            color: #EF4444;
+            margin-top: 4px;
+        }
+
+        .form-submit {
+            width: 100%;
+            height: 60px;
+            background: #34c759;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .form-submit:hover {
+            background: #2fb350;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.4);
+        }
+
+        .form-submit:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+        }
+
+        .form-submit.processing {
+            opacity: 0.9;
+            pointer-events: none;
+        }
+
+        /* Calendar Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .calendar-widget {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow: hidden;
+            transform: scale(0.9) translateY(30px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .calendar-widget {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            transition-delay: 0.2s;
+        }
+
+        .calendar-header {
+            background: linear-gradient(135deg, #5f4bb6 0%, #4a3a92 100%);
+            padding: 24px 32px;
+            color: white;
+            position: relative;
+        }
+
+        .calendar-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .calendar-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 6px;
+        }
+
+        .calendar-subtitle {
+            font-family: 'Archivo', sans-serif;
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .calendar-body {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-height: calc(85vh - 120px);
+            overflow-y: auto;
+        }
+
+        .calendar-month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .calendar-month-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            color: #374151;
+        }
+
+        .calendar-nav-button {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #E5E7EB;
+            background: white;
+            border-radius: 8px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-nav-button:hover {
+            border-color: #5f4bb6;
+            color: #5f4bb6;
+            background: rgba(95, 75, 182, 0.05);
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .calendar-weekday {
+            font-family: 'Archivo', sans-serif;
+            font-weight: 600;
+            font-size: 12px;
+            color: #6B7280;
+            text-align: center;
+            padding: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border: 2px solid transparent;
+            background: white;
+            border-radius: 10px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 14px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 44px;
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+            color: #E5E7EB;
+        }
+
+        .calendar-day.available:hover {
+            border-color: #5f4bb6;
+            background: rgba(95, 75, 182, 0.05);
+            transform: scale(1.05);
+        }
+
+        .calendar-day.selected {
+            background: #5f4bb6;
+            color: white;
+            border-color: #5f4bb6;
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(95, 75, 182, 0.3);
+        }
+
+        .calendar-day.selected:hover {
+            color: #5f4bb6;
+            background: white;
+        }
+
+        .calendar-day.available::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: #34c759;
+            border-radius: 50%;
+        }
+
+        .time-slots-panel {
+            border-top: 1px solid #E5E7EB;
+            padding-top: 20px;
+        }
+
+        .time-slots-header {
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .selected-date-label {
+            font-family: 'Archivo', sans-serif;
+            font-size: 12px;
+            color: #6B7280;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .selected-date-value {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: #374151;
+            text-align: center;
+        }
+
+        .time-slots-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .time-slot {
+            padding: 12px 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            background: white;
+            font-family: 'Archivo', sans-serif;
+            font-size: 15px;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .time-slot:hover {
+            border-color: #5f4bb6;
+            background: rgba(95, 75, 182, 0.05);
+        }
+
+        .time-slot.selected {
+            border-color: #34c759;
+            background: rgba(52, 199, 89, 0.1);
+            color: #34c759;
+            font-weight: 600;
+        }
+
+        .time-slot-check {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #E5E7EB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .time-slot.selected .time-slot-check {
+            background: #34c759;
+            border-color: #34c759;
+        }
+
+        .time-slot.selected .time-slot-check i {
+            color: white;
+            font-size: 10px;
+        }
+
+        .time-slots-footer {
+            padding-top: 20px;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .confirm-booking-button {
+            width: 100%;
+            height: 56px;
+            background: #34c759;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 17px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .confirm-booking-button:hover:not(:disabled) {
+            background: #2fb350;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(52, 199, 89, 0.4);
+        }
+
+        .confirm-booking-button:disabled {
+            background: #9CA3AF;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .calendar-success {
+            padding: 60px 32px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-animation {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 24px;
+            animation: successPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes successPopIn {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .success-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 32px;
+            color: #374151;
+            margin-bottom: 16px;
+        }
+
+        .success-details {
+            font-family: 'Archivo', sans-serif;
+            font-size: 17px;
+            line-height: 26px;
+            color: #6B7280;
+            margin: 0 auto 24px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .success-booking-info {
+            background: rgba(52, 199, 89, 0.1);
+            border: 2px solid #34c759;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .booking-info-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-family: 'Archivo', sans-serif;
+            font-size: 15px;
+            color: #374151;
+        }
+
+        .booking-info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .booking-info-icon {
+            width: 20px;
+            height: 20px;
+            color: #34c759;
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .download-calendar-button {
+            height: 52px;
+            padding: 0 28px;
+            background: #5f4bb6;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .download-calendar-button:hover {
+            background: #4a3a92;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(95, 75, 182, 0.3);
+        }
+
+        .close-modal-button {
+            height: 52px;
+            padding: 0 28px;
+            background: white;
+            color: #374151;
+            border: 2px solid #E5E7EB;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal-button:hover {
+            border-color: #5f4bb6;
+            color: #5f4bb6;
+        }
+
+        /* Tablet Responsive */
+        @media (max-width: 1023px) {
+            .nav-container {
+                padding: 0 32px;
+            }
+
+            .logo-text {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                gap: 36px;
+            }
+
+            .nav-link {
+                font-size: 16px;
+            }
+
+            .btn-primary {
+                height: 52px;
+                padding: 0 20px;
+                font-size: 16px;
+            }
+
+            .hero-section {
+                padding: 48px 32px 80px;
+            }
+
+            .hero-headline {
+                font-size: 38px;
+                line-height: 46px;
+                margin-bottom: 24px;
+            }
+
+            .hero-animation-stage {
+                width: 700px;
+                height: 360px;
+                margin-bottom: 24px;
+            }
+
+            .pdf-document {
+                width: 80px;
+                height: 96px;
+            }
+
+            .ai-processor {
+                width: 112px;
+                height: 112px;
+            }
+
+            .employee-generic,
+            .employee-invaluable {
+                width: 88px;
+                height: 88px;
+            }
+
+            .achievement-badge {
+                width: 28px;
+                height: 28px;
+            }
+
+            @keyframes orbitSmart {
+                from { transform: translate(50%, -50%) rotate(0deg) translateX(52px) scale(1); }
+                to { transform: translate(50%, -50%) rotate(360deg) translateX(52px) scale(1); }
+            }
+
+            @keyframes orbitCreative {
+                from { transform: translate(50%, -50%) rotate(120deg) translateX(52px) scale(1); }
+                to { transform: translate(50%, -50%) rotate(480deg) translateX(52px) scale(1); }
+            }
+
+            @keyframes orbitData {
+                from { transform: translate(50%, -50%) rotate(240deg) translateX(52px) scale(1); }
+                to { transform: translate(50%, -50%) rotate(600deg) translateX(52px) scale(1); }
+            }
+
+            @keyframes badgeSmartAppear {
+                100% { transform: translate(50%, -50%) rotate(0deg) translateX(52px) scale(1); }
+            }
+
+            @keyframes badgeCreativeAppear {
+                100% { transform: translate(50%, -50%) rotate(120deg) translateX(52px) scale(1); }
+            }
+
+            @keyframes badgeDataAppear {
+                100% { transform: translate(50%, -50%) rotate(240deg) translateX(52px) scale(1); }
+            }
+
+            .playbook-label,
+            .generic-label,
+            .invaluable-label {
+                font-size: 15px;
+                padding: 6px 12px;
+            }
+
+            .ai-label {
+                font-size: 17px;
+            }
+
+            .time-badge,
+            .training-badge {
+                font-size: 15px;
+                padding: 6px 14px;
+            }
+
+            .success-metrics-final {
+                gap: 32px;
+            }
+
+            .metric-value-final {
+                font-size: 24px;
+            }
+
+            .metric-label-final {
+                font-size: 12px;
+            }
+
+            .hero-subheadline {
+                font-size: 18px;
+                line-height: 28px;
+            }
+
+            .signup-section {
+                padding: 80px 32px;
+            }
+
+            .signup-headline {
+                font-size: 40px;
+                line-height: 48px;
+            }
+
+            .form-card {
+                padding: 48px 40px;
+            }
+
+            .time-slots-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        /* Mobile Responsive */
+        @media (max-width: 767px) {
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-links,
+            .nav-actions {
+                display: none;
+            }
+
+            .nav-header {
+                height: 60px;
+            }
+
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+
+            .hero-section {
+                margin-top: 60px;
+                padding: 40px 20px 70px;
+            }
+
+            .hero-headline {
+                font-size: 28px;
+                line-height: 36px;
+                margin-bottom: 24px;
+            }
+
+            .hero-animation-stage {
+                width: 100%;
+                max-width: 340px;
+                height: 320px;
+                margin-bottom: 24px;
+            }
+
+            .pdf-document {
+                width: 60px;
+                height: 72px;
+                left: 18%;
+            }
+
+            .playbook-label {
+                font-size: 13px;
+                padding: 5px 10px;
+                bottom: -32px;
+            }
+
+            .ai-processor {
+                width: 85px;
+                height: 85px;
+            }
+
+            .ai-label {
+                font-size: 14px;
+                padding: 4px 10px;
+                bottom: -40px;
+            }
+
+            .data-stream {
+                left: 28%;
+                width: 22%;
+            }
+
+            .time-badge {
+                top: 18%;
+                font-size: 13px;
+                padding: 5px 12px;
+            }
+
+            .training-badge {
+                top: 35%;
+                font-size: 13px;
+                padding: 5px 12px;
+            }
+
+            .employee-generic,
+            .employee-invaluable {
+                width: 70px;
+                height: 70px;
+                right: 18%;
+            }
+
+            .generic-label,
+            .invaluable-label {
+                font-size: 13px;
+                padding: 5px 10px;
+                bottom: -32px;
+            }
+
+            .transformation-beam {
+                width: 28%;
+                height: 6px;
+            }
+
+            .achievement-badge {
+                width: 20px;
+                height: 20px;
+            }
+
+            @keyframes orbitSmart {
+                from { transform: translate(50%, -50%) rotate(0deg) translateX(42px) scale(1); }
+                to { transform: translate(50%, -50%) rotate(360deg) translateX(42px) scale(1); }
+            }
+
+            @keyframes orbitCreative {
+                from { transform: translate(50%, -50%) rotate(120deg) translateX(42px) scale(1); }
+                to { transform: translate(50%, -50%) rotate(480deg) translateX(42px) scale(1); }
+            }
+
+            @keyframes orbitData {
+                from { transform: translate(50%, -50%) rotate(240deg) translateX(42px) scale(1); }
+                to { transform: translate(50%, -50%) rotate(600deg) translateX(42px) scale(1); }
+            }
+
+            @keyframes badgeSmartAppear {
+                100% { transform: translate(50%, -50%) rotate(0deg) translateX(42px) scale(1); }
+            }
+
+            @keyframes badgeCreativeAppear {
+                100% { transform: translate(50%, -50%) rotate(120deg) translateX(42px) scale(1); }
+            }
+
+            @keyframes badgeDataAppear {
+                100% { transform: translate(50%, -50%) rotate(240deg) translateX(42px) scale(1); }
+            }
+
+            .success-metrics-final {
+                bottom: 25px;
+                gap: 20px;
+            }
+
+            .metric-value-final {
+                font-size: 20px;
+            }
+
+            .metric-label-final {
+                font-size: 11px;
+            }
+
+            .hero-subheadline {
+                font-size: 16px;
+                line-height: 24px;
+                margin-bottom: 20px;
+            }
+
+            .btn-secondary {
+                height: 46px;
+                padding: 0 22px;
+                font-size: 16px;
+            }
+
+            .btn-secondary.prominent {
+                height: 52px;
+                font-size: 18px;
+            }
+
+            .trust-section {
+                padding: 48px 20px;
+            }
+
+            .trust-title {
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+
+            .logo-marquee {
+                height: 48px;
+            }
+
+            .client-logo {
+                height: 48px;
+                width: 180px;
+            }
+
+            .signup-section {
+                padding: 64px 20px;
+                scroll-margin-top: 60px;
+            }
+
+            .signup-headline {
+                font-size: 28px;
+                line-height: 36px;
+            }
+
+            .signup-subheadline {
+                font-size: 17px;
+                line-height: 26px;
+            }
+
+            .form-card {
+                padding: 32px 24px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .form-field.full-width,
+            .form-field.company-field,
+            .form-field.role-field,
+            .form-field.team-size-field {
+                grid-column: 1;
+            }
+
+            .form-input,
+            .form-select {
+                height: 52px;
+            }
+
+            .form-submit {
+                height: 56px;
+                font-size: 18px;
+            }
+
+            .calendar-widget {
+                width: 95%;
+                max-height: 90vh;
+            }
+
+            .calendar-header {
+                padding: 20px 24px;
+            }
+
+            .calendar-title {
+                font-size: 24px;
+            }
+
+            .calendar-body {
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .calendar-day {
+                font-size: 13px;
+                min-height: 38px;
+            }
+
+            .time-slots-list {
+                grid-template-columns: 1fr;
+            }
+
+            .time-slot {
+                padding: 12px 14px;
+                font-size: 15px;
+            }
+
+            .confirm-booking-button {
+                height: 52px;
+                font-size: 16px;
+            }
+
+            .success-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .download-calendar-button,
+            .close-modal-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header" id="mainNav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">PETE Learning</span>
+            </div>
+            
+            <div class="nav-links">
+                <div class="dropdown-container">
+                    <a class="nav-link" id="solutionsLink">Solutions</a>
+                    <div class="dropdown-menu" id="solutionsDropdown">
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-handshake dropdown-icon"></i>
+                            Sales Training
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-shield-alt dropdown-icon"></i>
+                            Compliance
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user-plus dropdown-icon"></i>
+                            Onboarding
+                        </a>
+                    </div>
+                </div>
+                <a href="#" class="nav-link">Case Studies</a>
+                <a href="#" class="nav-link">Pricing</a>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="#" class="nav-signin">Sign In</a>
+                <button class="btn-primary">Book a Demo</button>
+            </div>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+    
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <div class="mobile-nav-links">
+            <button class="mobile-dropdown-toggle" onclick="toggleMobileDropdown(event)">
+                Solutions
+                <i class="fas fa-chevron-down" style="transition: transform 0.3s ease;"></i>
+            </button>
+            <div class="mobile-dropdown-content">
+                <a href="#" class="mobile-dropdown-item">
+                    <i class="fas fa-handshake dropdown-icon"></i>
+                    Sales Training
+                </a>
+                <a href="#" class="mobile-dropdown-item">
+                    <i class="fas fa-shield-alt dropdown-icon"></i>
+                    Compliance
+                </a>
+                <a href="#" class="mobile-dropdown-item">
+                    <i class="fas fa-user-plus dropdown-icon"></i>
+                    Onboarding
+                </a>
+            </div>
+            
+            <a href="#" class="mobile-nav-link">Case Studies</a>
+            <a href="#" class="mobile-nav-link">Pricing</a>
+        </div>
+        
+        <div class="mobile-nav-actions">
+            <a href="#" class="mobile-nav-signin">Sign In</a>
+            <button class="btn-primary" style="width: 100%; justify-content: center;">Book a Demo</button>
+        </div>
+    </div>
+
+    <section class="hero-section">
+        <div class="hero-container">
+            <h1 class="hero-headline">
+                Stop Investing in <span>Mediocrity</span>.<br>Invest in <span class="hero-invaluable">Invaluable Talent</span>.
+            </h1>
+            
+            <div class="hero-animation-stage">
+                <div class="pdf-document">
+                    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="docGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffffff"></stop>
+                                <stop offset="100%" style="stop-color:#f0f0f0"></stop>
+                            </linearGradient>
+                        </defs>
+                        <path d="M5 0 L87 0 L100 13 L100 120 L5 120 Z" fill="url(#docGradient)" stroke="#5f4bb6" stroke-width="2"></path>
+                        <path d="M87 0 L87 13 L100 13" fill="none" stroke="#5f4bb6" stroke-width="2"></path>
+                        <rect x="15" y="25" width="50" height="3" rx="1.5" fill="#5f4bb6" opacity="0.6"></rect>
+                        <rect x="15" y="35" width="40" height="3" rx="1.5" fill="#5f4bb6" opacity="0.6"></rect>
+                        <rect x="15" y="45" width="35" height="3" rx="1.5" fill="#5f4bb6" opacity="0.6"></rect>
+                        <rect x="15" y="12" width="70" height="6" rx="3" fill="#5f4bb6" opacity="0.3"></rect>
+                        <circle cx="50" cy="75" r="12" fill="none" stroke="#5f4bb6" stroke-width="2"></circle>
+                        <path d="M44 75 L48 79 L56 71" stroke="#5f4bb6" stroke-width="2" fill="none" stroke-linecap="round"></path>
+                    </svg>
+                    <div class="playbook-label">Your Playbook</div>
+                </div>
+                
+                <div class="ai-processor">
+                    <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="processorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#5f4bb6"></stop>
+                                <stop offset="100%" style="stop-color:#34c759"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="70" cy="70" r="60" fill="none" stroke="url(#processorGradient)" stroke-width="4"></circle>
+                        <circle cx="70" cy="70" r="45" fill="none" stroke="#34c759" stroke-width="3"></circle>
+                        <path d="M70 35 L75 70 L70 70 L65 70 Z" fill="#5f4bb6"></path>
+                        <path d="M70 35 L85 50 L70 70" fill="none" stroke="#34c759" stroke-width="2"></path>
+                        <circle cx="70" cy="70" r="15" fill="#34c759" opacity="0.3"></circle>
+                    </svg>
+                    <div class="ai-label">AI Builds Your Course</div>
+                </div>
+
+                <div class="data-stream"></div>
+                <div class="time-badge">2 Minutes</div>
+                <div class="training-badge">Training With Your Data</div>
+
+                <div class="employee-generic">
+                    <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="55" cy="35" r="20" fill="#9CA3AF"></circle>
+                        <path d="M25 110 Q25 70 55 70 Q85 70 85 110 Z" fill="#9CA3AF"></path>
+                        <path d="M42 85 Q55 78 68 85" stroke="#6B7280" stroke-width="2" fill="none"></path>
+                        <text x="55" y="20" text-anchor="middle" font-size="24" fill="#6B7280">?</text>
+                    </svg>
+                    <div class="generic-label">Generic Employee</div>
+                </div>
+
+                <div class="transformation-beam"></div>
+
+                <div class="employee-invaluable">
+                    <svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="employeeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffffff"></stop>
+                                <stop offset="100%" style="stop-color:#34c759"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="55" cy="35" r="20" fill="url(#employeeGradient)" filter="drop-shadow(0 0 8px rgba(52, 199, 89, 0.4))"></circle>
+                        <path d="M25 110 Q25 70 55 70 Q85 70 85 110 Z" fill="url(#employeeGradient)" filter="drop-shadow(0 0 8px rgba(52, 199, 89, 0.4))"></path>
+                        <path d="M38 85 Q55 92 72 85" stroke="white" stroke-width="2" fill="none"></path>
+                        <path d="M50 15 L55 5 L60 15" stroke="#34c759" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    <div class="invaluable-label">Invaluable Talent</div>
+                </div>
+
+                <div class="achievement-badge badge-smart">
+                    <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="badgeSmartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#7D6FE6"></stop>
+                                <stop offset="100%" stop-color="#4A3A92"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="18" cy="18" r="17" fill="url(#badgeSmartGradient)"></circle>
+                        <circle cx="18" cy="18" r="13" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2"></circle>
+                        <path d="M18 9 L20.6 14.9 L26.9 15.4 L22.1 19.3 L23.6 25.4 L18 22.3 L12.4 25.4 L13.9 19.3 L9.1 15.4 L15.4 14.9 Z" fill="#FFFFFF"></path>
+                    </svg>
+                </div>
+
+                <div class="achievement-badge badge-creative">
+                    <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="badgeCreativeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#8E7FF0"></stop>
+                                <stop offset="100%" stop-color="#4A3A92"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="18" cy="18" r="17" fill="url(#badgeCreativeGradient)"></circle>
+                        <path d="M18 9 C22 9 25 12 25 16 C25 19 23.2 21.4 21.2 23.5 C20.1 24.6 19.3 26.1 19 27.8 C18.8 28.9 17.2 28.9 17 27.8 C16.7 26.1 15.9 24.6 14.8 23.5 C12.8 21.4 11 19 11 16 C11 12 14 9 18 9 Z" fill="rgba(255, 255, 255, 0.9)"></path>
+                        <circle cx="18" cy="17" r="3" fill="#5F4BB6"></circle>
+                        <path d="M18 24 L18 27" stroke="#5F4BB6" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                </div>
+
+                <div class="achievement-badge badge-datadriven">
+                    <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="badgeDataGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#7B6EEB"></stop>
+                                <stop offset="100%" stop-color="#3C2C7A"></stop>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="18" cy="18" r="17" fill="url(#badgeDataGradient)"></circle>
+                        <rect x="11" y="18" width="3" height="8" rx="1.5" fill="rgba(255, 255, 255, 0.85)"></rect>
+                        <rect x="17" y="14" width="3" height="12" rx="1.5" fill="rgba(255, 255, 255, 0.85)"></rect>
+                        <rect x="23" y="10" width="3" height="16" rx="1.5" fill="rgba(255, 255, 255, 0.85)"></rect>
+                        <path d="M12 23 L18.5 18.5 L24 14" stroke="#C7C2F5" stroke-width="2" fill="none" stroke-linecap="round"></path>
+                        <circle cx="24" cy="14" r="1.5" fill="#C7C2F5"></circle>
+                    </svg>
+                </div>
+
+                <div class="success-metrics-final">
+                    <div class="metric-item-final">
+                        <div class="metric-value-final">2 Min</div>
+                        <div class="metric-label-final">To Deploy</div>
+                    </div>
+                    <div class="metric-item-final">
+                        <div class="metric-value-final">98%</div>
+                        <div class="metric-label-final">Retention</div>
+                    </div>
+                    <div class="metric-item-final">
+                        <div class="metric-value-final">5x ROI</div>
+                        <div class="metric-label-final">Performance Boost</div>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="hero-subheadline">
+                Turn generic employees into invaluable assets with AI training built from your company's playbook.
+            </p>
+            
+            <div class="hero-cta">
+                <button class="btn-secondary" id="heroCTA">
+                    <span>Get Started Now</span>
+                    <i class="fas fa-chevron-down chevron-bounce"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    <section class="trust-section">
+        <div class="trust-container">
+            <p class="trust-title">Trusted by industry leaders:</p>
+            
+            <div class="logo-marquee">
+                <div class="logo-track">
+                    <svg class="client-logo" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                        <path d="M32 12 L32 32 L48 40" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"></path>
+                        <text x="70" y="38" font-family="Arial" font-size="16" font-weight="bold" fill="currentColor">Orlando City</text>
+                    </svg>
+                    
+                    <svg class="client-logo" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="3"></rect>
+                        <circle cx="32" cy="32" r="12" fill="currentColor" opacity="0.3"></circle>
+                        <text x="65" y="38" font-family="Arial" font-size="16" font-weight="bold" fill="currentColor">City of Orlando</text>
+                    </svg>
+
+                    <svg class="client-logo" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 50 L32 10 L54 50 Z" fill="none" stroke="currentColor" stroke-width="3"></path>
+                        <circle cx="32" cy="32" r="6" fill="currentColor"></circle>
+                        <text x="65" y="38" font-family="Arial" font-size="16" font-weight="bold" fill="currentColor">Orlando Pride</text>
+                    </svg>
+
+                    <svg class="client-logo" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" rx="4" fill="none" stroke="currentColor" stroke-width="3"></rect>
+                        <path d="M20 24 L44 24 M20 32 L44 32 M20 40 L44 40" stroke="currentColor" stroke-width="2"></path>
+                        <text x="65" y="38" font-family="Arial" font-size="16" font-weight="bold" fill="currentColor">CEO School</text>
+                    </svg>
+
+                    <svg class="client-logo" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="28" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                        <path d="M32 12 L32 32 L48 40" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"></path>
+                        <text x="70" y="38" font-family="Arial" font-size="16" font-weight="bold" fill="currentColor">Orlando City</text>
+                    </svg>
+                    
+                    <svg class="client-logo" viewBox="0 0 250 64" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="8" width="48" height="48" rx="8" fill="none" stroke="currentColor" stroke-width="3"></rect>
+                        <circle cx="32" cy="32" r="12" fill="currentColor" opacity="0.3"></circle>
+                        <text x="65" y="38" font-family="Arial" font-size="16" font-weight="bold" fill="currentColor">City of Orlando</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="signup-section" id="signupSection">
+        <div class="signup-container">
+            <div class="signup-header">
+                <h2 class="signup-headline">Get Started in <span class="time-emphasis">2 Minutes</span></h2>
+                <p class="signup-subheadline">
+                    Book your demo and see PETE transform your training.
+                </p>
+            </div>
+            
+            <div class="form-card">
+                <form id="demoForm">
+                    <div class="form-grid">
+                        <div class="form-field full-width">
+                            <label class="form-label">Full Name<span class="required">*</span></label>
+                            <input type="text" name="fullName" id="fullName" class="form-input" placeholder="John Smith" required>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="form-label">Work Email<span class="required">*</span></label>
+                            <input type="email" name="email" id="email" class="form-input" placeholder="john@company.com" required>
+                        </div>
+                        
+                        <div class="form-field">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" name="phone" class="form-input" placeholder="(555) 123-4567">
+                        </div>
+                        
+                        <div class="form-field company-field full-width">
+                            <label class="form-label">Company Name<span class="required">*</span></label>
+                            <input type="text" name="company" id="company" class="form-input" placeholder="Acme Corporation" required>
+                        </div>
+                        
+                        <div class="form-field team-size-field full-width">
+                            <label class="form-label">Team Size<span class="required">*</span></label>
+                            <select name="teamSize" class="form-select" required>
+                                <option value="">Select team size</option>
+                                <option value="1-10">1-10</option>
+                                <option value="11-50">11-50</option>
+                                <option value="51-200">51-200</option>
+                                <option value="201-1000">201-1000</option>
+                                <option value="1000+">1000+</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-field role-field full-width">
+                             <label class="form-label" style="text-align: left;">Your Role<span class="required">*</span></label>
+                            <select name="role" class="form-select" required>
+                                <option value="">Select your role</option>
+                                <option value="CLO">Chief Learning Officer</option>
+                                <option value="L&amp;D Director">L&amp;D Director</option>
+                                <option value="Training Manager">Training Manager</option>
+                                <option value="HR Leader">HR Leader</option>
+                                <option value="C-Suite">C-Suite Executive</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-field full-width">
+                            <label class="form-label">Tell us about your training challenges (Optional)</label>
+                            <textarea name="message" class="form-textarea" placeholder="We're struggling with sales training consistency across our 200-person team..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="form-submit">
+                        <span>Schedule Demo</span>
+                        <i class="far fa-calendar-check"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+        const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+
+        function toggleMobileMenu() {
+            mobileMenuToggle.classList.toggle('active');
+            mobileNavOverlay.classList.toggle('active');
+            mobileNavDrawer.classList.toggle('active');
+            document.body.style.overflow = mobileNavDrawer.classList.contains('active') ? 'hidden' : '';
+        }
+
+        mobileMenuToggle?.addEventListener('click', toggleMobileMenu);
+        mobileNavOverlay?.addEventListener('click', toggleMobileMenu);
+
+        function toggleMobileDropdown(event) {
+            const button = event.currentTarget;
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            content.classList.toggle('active');
+            icon.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-item').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileNavDrawer.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('mainNav');
+            const logoGradientStart = document.querySelector('.logo-gradient-start');
+            const logoCheckmark = document.querySelector('.logo-checkmark');
+            
+            if (window.scrollY > 10) {
+                nav.classList.add('scrolled');
+                if (logoGradientStart) {
+                    logoGradientStart.style.stopColor = '#5f4bb6';
+                }
+                if (logoCheckmark) {
+                    logoCheckmark.setAttribute('stroke', '#5f4bb6');
+                }
+            } else {
+                nav.classList.remove('scrolled');
+                if (logoGradientStart) {
+                    logoGradientStart.style.stopColor = '#ffffff';
+                }
+                if (logoCheckmark) {
+                    logoCheckmark.setAttribute('stroke', 'white');
+                }
+            }
+        });
+
+        const solutionsLink = document.getElementById('solutionsLink');
+        const solutionsDropdown = document.getElementById('solutionsDropdown');
+        let dropdownTimeout;
+
+        solutionsLink?.addEventListener('mouseenter', function() {
+            clearTimeout(dropdownTimeout);
+            solutionsDropdown.classList.add('active');
+        });
+
+        solutionsLink?.addEventListener('mouseleave', function() {
+            dropdownTimeout = setTimeout(() => {
+                solutionsDropdown.classList.remove('active');
+            }, 200);
+        });
+
+        solutionsDropdown?.addEventListener('mouseenter', function() {
+            clearTimeout(dropdownTimeout);
+        });
+
+        solutionsDropdown?.addEventListener('mouseleave', function() {
+            solutionsDropdown.classList.remove('active');
+        });
+
+        document.getElementById('heroCTA')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            const signupSection = document.getElementById('signupSection');
+            if (signupSection) {
+                signupSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                setTimeout(() => {
+                    const firstInput = signupSection.querySelector('#fullName');
+                    firstInput?.focus();
+                }, 800);
+            }
+        });
+
+        setTimeout(() => {
+            document.getElementById('heroCTA')?.classList.add('prominent');
+        }, 8000);
+
+        const form = document.getElementById('demoForm');
+        const emailInput = document.getElementById('email');
+        const requiredInputs = form?.querySelectorAll('[required]');
+
+        emailInput?.addEventListener('blur', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(this.value)) {
+                this.classList.add('error');
+                this.classList.remove('success');
+                showError(this, 'Please enter a valid work email');
+            } else {
+                this.classList.remove('error');
+                this.classList.add('success');
+                hideError(this);
+            }
+        });
+
+        requiredInputs?.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (!this.value.trim()) {
+                    this.classList.add('error');
+                    showError(this, 'This field is required');
+                } else {
+                    this.classList.remove('error');
+                    this.classList.add('success');
+                    hideError(this);
+                }
+            });
+        });
+
+        form?.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    isValid = false;
+                }
+            });
+            
+            if (!isValid) return;
+            
+            const submitButton = this.querySelector('.form-submit');
+            const originalText = submitButton.innerHTML;
+            submitButton.classList.add('processing');
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Processing...</span>';
+            
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            
+            submitButton.classList.remove('processing');
+            submitButton.innerHTML = originalText;
+            
+            showCalendarModal();
+        });
+
+        function showError(input, message) {
+            let errorDiv = input.nextElementSibling;
+            if (!errorDiv || !errorDiv.classList.contains('error-message')) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'error-message';
+                input.parentNode.insertBefore(errorDiv, input.nextSibling);
+            }
+            errorDiv.textContent = message;
+        }
+
+        function hideError(input) {
+            const errorDiv = input.nextElementSibling;
+            if (errorDiv?.classList.contains('error-message')) {
+                errorDiv.remove();
+            }
+        }
+
+        function showCalendarModal() {
+            const modalHTML = `
+                <div class="modal-overlay" id="calendarModal">
+                    <div class="calendar-widget">
+                        <div class="calendar-header">
+                            <button class="calendar-close" onclick="closeCalendarModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h2 class="calendar-title">Schedule Your Demo</h2>
+                            <p class="calendar-subtitle">Pick a date and time that works for you</p>
+                        </div>
+                        <div class="calendar-body" id="calendarBody">
+                            ${generateCalendarView()}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+            
+            setTimeout(() => {
+                document.getElementById('calendarModal').classList.add('active');
+            }, 10);
+            
+            document.getElementById('calendarModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCalendarModal();
+                }
+            });
+        }
+
+        let selectedDate = null;
+        let selectedTime = null;
+
+        function selectDate(day, month) {
+            document.querySelectorAll('.calendar-day.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            event.target.classList.add('selected');
+            selectedDate = `${month} ${day}, 2025`;
+            
+            document.getElementById('selectedDateValue').textContent = selectedDate;
+            loadTimeSlots();
+        }
+
+        function generateCalendarView() {
+            const currentMonth = 'November';
+            const daysInMonth = 30;
+            const firstDayOfWeek = 6;
+            
+            let calendarHTML = `
+                <div class="calendar-grid-container">
+                    <div class="calendar-month-header">
+                        <button class="calendar-nav-button" onclick="alert('Previous month')">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 class="calendar-month-title">${currentMonth} 2025</h3>
+                        <button class="calendar-nav-button" onclick="alert('Next month')">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-weekdays">
+                        <div class="calendar-weekday">Sun</div>
+                        <div class="calendar-weekday">Mon</div>
+                        <div class="calendar-weekday">Tue</div>
+                        <div class="calendar-weekday">Wed</div>
+                        <div class="calendar-weekday">Thu</div>
+                        <div class="calendar-weekday">Fri</div>
+                        <div class="calendar-weekday">Sat</div>
+                    </div>
+                    
+                    <div class="calendar-days">
+            `;
+            
+            for (let i = 0; i < firstDayOfWeek; i++) {
+                calendarHTML += '<div class="calendar-day empty"></div>';
+            }
+            
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayOfWeek = (firstDayOfWeek + day - 1) % 7;
+                const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+                const isAvailable = !isWeekend && day >= 3;
+                
+                calendarHTML += `
+                    <div class="calendar-day ${isAvailable ? 'available' : ''}" 
+                         ${isAvailable ? `onclick="selectDate(${day}, '${currentMonth}')"` : ''}>
+                        ${day}
+                    </div>
+                `;
+            }
+            
+            calendarHTML += `
+                    </div>
+                </div>
+                
+                <div class="time-slots-panel">
+                    <div class="time-slots-header">
+                        <div class="selected-date-label">Selected Date</div>
+                        <div class="selected-date-value" id="selectedDateValue">Choose a date to view available times</div>
+                    </div>
+                    <div class="time-slots-list" id="timeSlotsList">
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 0; color: #9CA3AF; font-family: 'Archivo', sans-serif;">
+                            Select a date above to view available times
+                        </div>
+                    </div>
+                    <div class="time-slots-footer">
+                        <button class="confirm-booking-button" id="confirmBookingBtn" disabled>
+                            <span>Confirm Demo Booking</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return calendarHTML;
+        }
+
+        function loadTimeSlots() {
+            const timeSlots = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+            
+            let slotsHTML = '';
+            timeSlots.forEach(time => {
+                slotsHTML += `
+                    <div class="time-slot" onclick="selectTime('${time}')">
+                        <span>${time}</span>
+                        <div class="time-slot-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('timeSlotsList').innerHTML = slotsHTML;
+            selectedTime = null;
+            document.getElementById('confirmBookingBtn').disabled = true;
+        }
+
+        function selectTime(time) {
+            document.querySelectorAll('.time-slot.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            event.target.closest('.time-slot').classList.add('selected');
+            selectedTime = time;
+            document.getElementById('confirmBookingBtn').disabled = false;
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('#confirmBookingBtn') && !e.target.closest('#confirmBookingBtn').disabled) {
+                confirmBooking();
+            }
+        });
+
+        async function confirmBooking() {
+            const button = document.getElementById('confirmBookingBtn');
+            const originalHTML = button.innerHTML;
+            
+            button.classList.add('processing');
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Confirming...</span>';
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            showBookingSuccess();
+        }
+
+        function showBookingSuccess() {
+            const calendarBody = document.getElementById('calendarBody');
+            const formData = {
+                name: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                date: selectedDate,
+                time: selectedTime
+            };
+            
+            calendarBody.innerHTML = `
+                <div class="calendar-success">
+                    <svg class="success-animation" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="60" cy="60" r="55" fill="#34c759" opacity="0.2"/>
+                        <circle cx="60" cy="60" r="45" fill="#34c759"/>
+                        <path d="M35 60 L50 75 L85 40" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    
+                    <h2 class="success-title">Demo Booked!</h2>
+                    <p class="success-details">
+                        We've sent a confirmation email to <strong>${formData.email}</strong> with all the details.
+                    </p>
+                    
+                    <div class="success-booking-info">
+                        <div class="booking-info-row">
+                            <i class="far fa-calendar booking-info-icon"></i>
+                            <span><strong>Date:</strong> ${formData.date}</span>
+                        </div>
+                        <div class="booking-info-row">
+                            <i class="far fa-clock booking-info-icon"></i>
+                            <span><strong>Time:</strong> ${formData.time} EST</span>
+                        </div>
+                        <div class="booking-info-row">
+                            <i class="far fa-user booking-info-icon"></i>
+                            <span><strong>Duration:</strong> 30 minutes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="success-actions">
+                        <button class="download-calendar-button" onclick="downloadCalendarEvent()">
+                            <i class="far fa-calendar-plus"></i>
+                            <span>Add to Calendar</span>
+                        </button>
+                        <button class="close-modal-button" onclick="closeCalendarModal()">
+                            Done
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function downloadCalendarEvent() {
+            const dateMatch = selectedDate.match(/(\d+)/);
+            const day = dateMatch ? dateMatch[1] : '3';
+            const startDate = new Date('2025-11-' + day.padStart(2, '0') + ' ' + selectedTime);
+            const endDate = new Date(startDate.getTime() + 30 * 60000);
+            
+            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${formatICSDate(startDate)}
+DTEND:${formatICSDate(endDate)}
+SUMMARY:PETE Learning Demo
+DESCRIPTION:Demo session with PETE Learning team
+LOCATION:Online
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+            
+            const blob = new Blob([icsContent], { type: 'text/calendar' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'pete-demo.ics';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function formatICSDate(date) {
+            return date.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+        }
+
+        function closeCalendarModal() {
+            const modal = document.getElementById('calendarModal');
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 400);
+        }
+    </script>
+
+</body></html>
