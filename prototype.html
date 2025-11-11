@@ -1298,6 +1298,16 @@
             transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        .calendar-widget.success-mode {
+            background: transparent;
+            box-shadow: none;
+            width: min(460px, 90vw);
+            max-width: none;
+            max-height: none;
+            overflow: visible;
+            border-radius: 0;
+        }
+
         .modal-overlay.active .calendar-widget {
             transform: scale(1) translateY(0);
             opacity: 1;
@@ -1363,7 +1373,7 @@
         }
 
         .calendar-widget.success-mode .calendar-body {
-            padding: 48px 32px;
+            padding: 0;
             align-items: center;
             justify-content: center;
         }
@@ -1373,7 +1383,7 @@
             flex-direction: column;
             gap: 24px;
             justify-content: center;
-            padding: 36px 32px;
+            padding: 0;
         }
 
         .calendar-grid-container {
@@ -2152,7 +2162,7 @@
             }
 
             .calendar-body.success-state {
-                padding: 36px 24px;
+                padding: 0;
             }
 
             .calendar-grid-container,
@@ -2199,7 +2209,7 @@
             }
 
             .calendar-success-panel {
-                padding: 24px 0;
+                padding: 16px 0;
             }
 
             .calendar-success {
