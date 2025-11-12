@@ -20,105 +20,164 @@
  */
 function initCardStack() {
   const stack = document.querySelector('.card-stack-container');
-  const cards = Array.from(stack.querySelectorAll('.process-card'));
   const dotsWrap = document.querySelector('.progress-dots');
+
+  if (!stack || !dotsWrap) {
+    return;
+  }
+
   const dots = Array.from(dotsWrap.querySelectorAll('.progress-dot'));
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+  let cards = Array.from(stack.querySelectorAll('.process-card'));
+  let interactive = false;
+  const pendingTimeouts = new Set();
 
-  // Store original step index for each card
-  cards.forEach((card, index) => {
-    card.dataset.step = index;
-  });
+  function clearCardStyles(targetCards) {
+    targetCards.forEach(card => {
+      card.style.transform = '';
+      card.style.zIndex = '';
+      card.classList.remove('exit', 'active');
+    });
+  }
 
-  /**
-   * Layout cards in stacked position
-   * Top card is largest, subsequent cards are smaller and offset
-   */
   function layout() {
     cards.forEach((card, idx) => {
-      // Create depth effect with translateY and scale
       card.style.transform = `translateY(${idx * 20}px) scale(${1 - idx * 0.05})`;
       card.style.zIndex = String(cards.length - idx);
-
-      // Mark only top card as active
       card.classList.toggle('active', idx === 0);
       card.classList.remove('exit');
     });
 
-    // Update progress dots
-    const activeStep = Number(cards[0].dataset.step || 0);
+    const activeStep = Number(cards[0]?.dataset.step || 0);
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === activeStep);
     });
   }
 
-  /**
-   * Rotate cards - move top card to bottom
-   */
   function rotate() {
     const topCard = cards[0];
+    if (!topCard) {
+      return;
+    }
 
-    // Animate exit
     topCard.classList.add('exit');
 
-    // After animation completes, reorder cards
-    setTimeout(() => {
-      cards.push(cards.shift()); // Move first to end
-      stack.appendChild(topCard); // Move in DOM
+    const timeoutId = window.setTimeout(() => {
+      cards.push(cards.shift());
+      stack.appendChild(topCard);
       layout();
+      pendingTimeouts.delete(timeoutId);
     }, 300);
+
+    pendingTimeouts.add(timeoutId);
   }
 
-  /**
-   * Handle card click - only rotate if clicking the top card
-   */
   function handleCardClick(event) {
     if (cards[0] === event.currentTarget) {
       rotate();
     }
   }
 
-  // Add click and keyboard handlers to cards
-  cards.forEach(card => {
-    card.addEventListener('click', handleCardClick);
+  function handleCardKeydown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleCardClick({ currentTarget: event.currentTarget });
+    }
+  }
 
-    // Keyboard accessibility
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        handleCardClick({ currentTarget: card });
+  function handleDotClick(event) {
+    const targetStep = Number(event.currentTarget.dataset.index);
+    const position = cards.findIndex(card => Number(card.dataset.step) === targetStep);
+
+    if (position <= 0) {
+      layout();
+      return;
+    }
+
+    let rotations = 0;
+    const rotateStep = () => {
+      if (rotations++ < position) {
+        rotate();
+        const timeoutId = window.setTimeout(() => {
+          pendingTimeouts.delete(timeoutId);
+          rotateStep();
+        }, 340);
+
+        pendingTimeouts.add(timeoutId);
       }
+    };
+    rotateStep();
+  }
+
+  function teardownInteractive() {
+    const cardElements = Array.from(stack.querySelectorAll('.process-card'));
+
+    pendingTimeouts.forEach(timeoutId => {
+      window.clearTimeout(timeoutId);
     });
-  });
+    pendingTimeouts.clear();
 
-  /**
-   * Handle dot click - jump to specific card
-   */
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const targetStep = Number(dot.dataset.index);
+    cardElements.forEach(card => {
+      card.removeEventListener('click', handleCardClick);
+      card.removeEventListener('keydown', handleCardKeydown);
+      card.style.cursor = '';
+    });
 
-      // Find position of target card in current stack
-      let position = cards.findIndex(c => Number(c.dataset.step) === targetStep);
+    clearCardStyles(cardElements);
 
-      if (position <= 0) {
-        layout();
-        return;
+    dots.forEach(dot => {
+      dot.classList.remove('active');
+      dot.removeEventListener('click', handleDotClick);
+    });
+
+    stack.classList.add('card-stack-mobile');
+    dotsWrap.style.display = 'none';
+    dotsWrap.setAttribute('aria-hidden', 'true');
+    interactive = false;
+  }
+
+  function setupInteractive() {
+    cards = Array.from(stack.querySelectorAll('.process-card'));
+
+    cards.forEach((card, index) => {
+      if (!card.dataset.step) {
+        card.dataset.step = index;
       }
-
-      // Rotate multiple times to reach target
-      let rotations = 0;
-      const rotateStep = () => {
-        if (rotations++ < position) {
-          rotate();
-          setTimeout(rotateStep, 340);
-        }
-      };
-      rotateStep();
+      card.addEventListener('click', handleCardClick);
+      card.addEventListener('keydown', handleCardKeydown);
+      card.style.cursor = 'pointer';
     });
-  });
 
-  // Initial layout
-  layout();
+    dots.forEach(dot => {
+      dot.addEventListener('click', handleDotClick);
+    });
+
+    stack.classList.remove('card-stack-mobile');
+    dotsWrap.style.display = 'flex';
+    dotsWrap.setAttribute('aria-hidden', 'false');
+    interactive = true;
+    layout();
+  }
+
+  function handleBreakpointChange(event) {
+    if (event.matches) {
+      teardownInteractive();
+    } else if (!interactive) {
+      setupInteractive();
+    }
+  }
+
+  if (typeof mobileQuery.addEventListener === 'function') {
+    mobileQuery.addEventListener('change', handleBreakpointChange);
+  } else if (typeof mobileQuery.addListener === 'function') {
+    mobileQuery.addListener(handleBreakpointChange);
+  }
+
+  if (mobileQuery.matches) {
+    teardownInteractive();
+  } else {
+    setupInteractive();
+  }
 }
 
 /* ==========================================
