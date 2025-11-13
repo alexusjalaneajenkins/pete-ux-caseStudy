@@ -1537,7 +1537,7 @@
 
         .time-slots-list {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
             gap: 10px;
             margin-bottom: 20px;
         }
@@ -1748,6 +1748,7 @@
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
         }
 
@@ -1912,7 +1913,7 @@
             }
 
             .time-slots-list {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
             }
         }
         /* Mobile Responsive */
@@ -2866,7 +2867,7 @@
         }
 
         function loadTimeSlots() {
-            const timeSlots = ['9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+            const timeSlots = ['9:00 AM', '10:30 AM', '12:00 PM', '2:30 PM', '4:00 PM'];
             
             let slotsHTML = '';
             timeSlots.forEach(time => {
