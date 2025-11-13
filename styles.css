@@ -731,20 +731,6 @@ body {
     padding: 1.25rem;
   }
 
-  .problem-term-card,
-  .problem-impact-card {
-    padding: 1.5rem;
-  }
-
-  .problem-impact-card h4 {
-    font-size: 1.05rem;
-  }
-
-  .problem-impact-card p,
-  .problem-term-description {
-    font-size: 0.9rem;
-  }
-
   .visibility-bar-item {
     align-items: flex-start;
     flex-direction: column;
@@ -802,29 +788,6 @@ body {
   .bar-percentage-callout {
     top: -36px;
     right: -6px;
-  }
-
-  .problem-term-card,
-  .problem-impact-card {
-    padding: 1.25rem;
-  }
-
-  .problem-term-label {
-    font-size: 0.85rem;
-  }
-
-  .problem-impact-card h4 {
-    font-size: 1rem;
-  }
-
-  .problem-impact-card p,
-  .problem-term-description,
-  .chart-subtitle {
-    font-size: 0.9rem;
-  }
-
-  .chart-subtitle {
-    margin: -0.5rem auto 2rem;
   }
 
   .hero-title {
