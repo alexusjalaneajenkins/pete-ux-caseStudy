@@ -20,104 +20,99 @@
  */
 function initCardStack() {
   const stack = document.querySelector('.card-stack-container');
-  const cards = Array.from(stack.querySelectorAll('.process-card'));
   const dotsWrap = document.querySelector('.progress-dots');
+
+  if (!stack || !dotsWrap) {
+    return;
+  }
+
   const dots = Array.from(dotsWrap.querySelectorAll('.progress-dot'));
+  let cards = Array.from(stack.querySelectorAll('.process-card'));
+  let isAnimating = false;
 
-  // Store original step index for each card
-  cards.forEach((card, index) => {
-    card.dataset.step = index;
-  });
-
-  /**
-   * Layout cards in stacked position
-   * Top card is largest, subsequent cards are smaller and offset
-   */
   function layout() {
     cards.forEach((card, idx) => {
-      // Create depth effect with translateY and scale
       card.style.transform = `translateY(${idx * 20}px) scale(${1 - idx * 0.05})`;
       card.style.zIndex = String(cards.length - idx);
-
-      // Mark only top card as active
       card.classList.toggle('active', idx === 0);
       card.classList.remove('exit');
     });
 
-    // Update progress dots
-    const activeStep = Number(cards[0].dataset.step || 0);
+    const activeStep = Number(cards[0]?.dataset.step || 0);
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === activeStep);
     });
   }
 
-  /**
-   * Rotate cards - move top card to bottom
-   */
   function rotate() {
     const topCard = cards[0];
+    if (!topCard) {
+      return;
+    }
 
-    // Animate exit
+    if (isAnimating) {
+      return;
+    }
+
+    isAnimating = true;
+
     topCard.classList.add('exit');
 
-    // After animation completes, reorder cards
-    setTimeout(() => {
-      cards.push(cards.shift()); // Move first to end
-      stack.appendChild(topCard); // Move in DOM
+    window.setTimeout(() => {
+      cards.push(cards.shift());
+      stack.appendChild(topCard);
       layout();
-    }, 300);
+      isAnimating = false;
+    }, 360);
   }
 
-  /**
-   * Handle card click - only rotate if clicking the top card
-   */
   function handleCardClick(event) {
     if (cards[0] === event.currentTarget) {
       rotate();
     }
   }
 
-  // Add click and keyboard handlers to cards
-  cards.forEach(card => {
+  function handleCardKeydown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleCardClick({ currentTarget: event.currentTarget });
+    }
+  }
+
+  function handleDotClick(event) {
+    const targetStep = Number(event.currentTarget.dataset.index);
+    const position = cards.findIndex(card => Number(card.dataset.step) === targetStep);
+
+    if (position <= 0) {
+      layout();
+      return;
+    }
+
+    let rotations = 0;
+    const rotateStep = () => {
+      if (rotations++ < position) {
+        rotate();
+        window.setTimeout(rotateStep, 420);
+      }
+    };
+    rotateStep();
+  }
+
+  cards.forEach((card, index) => {
+    if (!card.dataset.step) {
+      card.dataset.step = index;
+    }
     card.addEventListener('click', handleCardClick);
-
-    // Keyboard accessibility
-    card.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        handleCardClick({ currentTarget: card });
-      }
-    });
+    card.addEventListener('keydown', handleCardKeydown);
+    card.style.cursor = 'pointer';
   });
 
-  /**
-   * Handle dot click - jump to specific card
-   */
   dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const targetStep = Number(dot.dataset.index);
-
-      // Find position of target card in current stack
-      let position = cards.findIndex(c => Number(c.dataset.step) === targetStep);
-
-      if (position <= 0) {
-        layout();
-        return;
-      }
-
-      // Rotate multiple times to reach target
-      let rotations = 0;
-      const rotateStep = () => {
-        if (rotations++ < position) {
-          rotate();
-          setTimeout(rotateStep, 340);
-        }
-      };
-      rotateStep();
-    });
+    dot.addEventListener('click', handleDotClick);
   });
 
-  // Initial layout
+  dotsWrap.style.display = 'flex';
+  dotsWrap.setAttribute('aria-hidden', 'false');
   layout();
 }
 
