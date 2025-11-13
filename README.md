@@ -13,7 +13,7 @@ A narrative-first UX case study that shows how PETE Learning repositioned its AI
 
 ### Hero & Positioning
 - 20-hour research narrative distilled into a two-minute pitch.
-- Primary CTA sends visitors to the PETE company snapshot for fast context.
+- Primary CTA anchors visitors to the live prototype demo.
 
 ### Process Card Stack
 - Interactive stack rotates automatically and via click or keyboard.
