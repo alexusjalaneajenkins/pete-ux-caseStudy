@@ -143,7 +143,7 @@ function initFocusCarousel() {
     activeIndex = 0;
   }
 
-  function updateCards({ focusActive = false } = {}) {
+  function updateCards() {
     const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
     const nextIndex = (activeIndex + 1) % cards.length;
 
@@ -154,9 +154,6 @@ function initFocusCarousel() {
         card.classList.add('is-active');
         card.setAttribute('tabindex', '0');
         card.setAttribute('aria-hidden', 'false');
-        if (focusActive) {
-          card.focus({ preventScroll: true });
-        }
       } else if (index === prevIndex) {
         card.classList.add('is-left');
         card.setAttribute('tabindex', '-1');
@@ -175,7 +172,8 @@ function initFocusCarousel() {
 
   function move(direction) {
     activeIndex = (activeIndex + direction + cards.length) % cards.length;
-    updateCards({ focusActive: true });
+    updateCards();
+    cards[activeIndex].focus({ preventScroll: true });
   }
 
   prevButton.addEventListener('click', () => move(-1));
@@ -195,30 +193,9 @@ function initFocusCarousel() {
 
   cards.forEach((card, index) => {
     card.addEventListener('focus', () => {
-      if (index !== activeIndex && !card.classList.contains('is-hidden')) {
+      if (index !== activeIndex) {
         activeIndex = index;
         updateCards();
-      }
-    });
-
-    card.addEventListener('click', () => {
-      if (index === activeIndex) {
-        move(1);
-      } else if (!card.classList.contains('is-hidden')) {
-        activeIndex = index;
-        updateCards({ focusActive: true });
-      }
-    });
-
-    card.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        if (index === activeIndex) {
-          move(1);
-        } else if (!card.classList.contains('is-hidden')) {
-          activeIndex = index;
-          updateCards({ focusActive: true });
-        }
       }
     });
   });
