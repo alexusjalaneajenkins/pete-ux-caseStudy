@@ -222,69 +222,146 @@
             class="mx-auto mt-6 h-16 w-auto sm:h-20"
           />
           <h2 class="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900">
-            The AI-powered learning partner built for enterprise ROI
+            The <span class="text-green-600 font-semibold">AI course-building platform</span> built for enterprise ROI
           </h2>
           <p class="mt-6 text-lg md:text-xl leading-8 text-gray-600">
-            PETE Learning, Inc. blends adaptive intelligence with business-first storytelling to help enterprise teams move from
-            training completion to measurable performance gains in minutes—not months.
+            PETE Learning, Inc. blends <strong class="text-green-700 font-semibold">adaptive intelligence</strong> with
+            <strong class="text-emerald-600 font-semibold">business-first storytelling</strong> to help enterprise teams move
+            from training completion to <strong class="text-green-700 font-semibold">measurable performance gains</strong> in
+            minutes—not months.
           </p>
         </div>
 
-        <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-          <article class="rounded-3xl bg-white/90 p-8 shadow-xl ring-1 ring-purple-100 backdrop-blur">
-            <h3 class="text-sm font-semibold uppercase tracking-[0.3em] text-purple-500">Company Snapshot</h3>
-            <p class="mt-4 text-2xl font-semibold text-gray-900">Purpose-built for corporate and workforce L&amp;D</p>
-            <ul class="mt-6 space-y-4 text-sm md:text-base text-gray-600">
-              <li class="flex gap-3">
-                <span class="text-xl">📍</span>
-                <div>
-                  <p class="font-semibold text-gray-900">Founded June 2023 · Orlando, Florida</p>
-                  <p>Scaling from the heart of Florida's innovation corridor with a fully distributed, AI-first team.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="text-xl">🎯</span>
-                <div>
-                  <p class="font-semibold text-gray-900">Enterprise L&amp;D focus</p>
-                  <p>Serving mid-market and enterprise organizations across tech, finance, legal, HR, sports, and retail.</p>
-                </div>
-              </li>
-              <li class="flex gap-3">
-                <span class="text-xl">🤝</span>
-                <div>
-                  <p class="font-semibold text-gray-900">Emerging client roster</p>
-                  <p>Trusted by teams at Kia Center, Addition Financial, Orlando City Soccer, WorthA, and more.</p>
-                </div>
-              </li>
-            </ul>
-          </article>
-          <article class="rounded-3xl bg-gray-900 text-white p-8 shadow-2xl ring-1 ring-purple-500/40">
-            <div class="flex items-center gap-3 text-green-400 text-sm font-semibold uppercase tracking-[0.35em]">
-              <span class="text-lg">🛠️</span>
-              Core Platform
-            </div>
-            <h4 class="mt-4 text-2xl font-semibold">PETE Platform · Adaptive Intelligence Ecosystem</h4>
-            <p class="mt-4 text-sm text-gray-200">An AI-enabled environment that assembles personalized learning paths, orchestrates content delivery, and scales authoring through automated workflows.</p>
-            <ul class="mt-6 space-y-3 text-sm text-gray-100">
-              <li class="flex gap-2"><span class="text-green-400">•</span> Adaptive course generation tailored to role, skill, and business goals</li>
-              <li class="flex gap-2"><span class="text-green-400">•</span> Built-in measurement maps progress to executive dashboards</li>
-              <li class="flex gap-2"><span class="text-green-400">•</span> Designed to feel like a guided product tour, not a dense LMS</li>
-            </ul>
-          </article>
+        <div class="mt-16" data-focus-carousel>
+          <button
+            class="carousel-arrow carousel-arrow-left"
+            type="button"
+            aria-label="Show previous PETE insight"
+            data-focus-prev
+          >
+            <span aria-hidden="true">&#8592;</span>
+          </button>
+          <div class="focus-carousel-track" role="list">
+            <article
+              class="focus-card is-active rounded-3xl bg-white/90 p-8 shadow-xl ring-1 ring-purple-100 backdrop-blur"
+              data-focus-card
+              role="listitem"
+              tabindex="0"
+            >
+              <h3 class="text-sm font-semibold uppercase tracking-[0.3em] text-purple-500">Company Snapshot</h3>
+              <p class="mt-4 text-2xl font-semibold text-gray-900">
+                Purpose-built for <span class="text-green-700 font-semibold">corporate and workforce L&amp;D</span>
+              </p>
+              <ul class="mt-6 space-y-4 text-sm md:text-base text-gray-600">
+                <li class="flex gap-3">
+                  <span class="text-xl">📍</span>
+                  <div>
+                    <p class="font-semibold text-gray-900">Founded June 2023 · Orlando, Florida</p>
+                    <p>
+                      Scaling from Florida's innovation corridor with a fully distributed,
+                      <strong class="text-green-700 font-semibold">AI-first team</strong> that meets learners where they are.
+                    </p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <span class="text-xl">🎯</span>
+                  <div>
+                    <p class="font-semibold text-gray-900">Enterprise L&amp;D focus</p>
+                    <p>
+                      Serving mid-market and enterprise organizations across
+                      <strong class="text-green-700 font-semibold">tech, finance, legal, HR, sports, and retail</strong>.
+                    </p>
+                  </div>
+                </li>
+                <li class="flex gap-3">
+                  <span class="text-xl">🤝</span>
+                  <div>
+                    <p class="font-semibold text-gray-900">Emerging client roster</p>
+                    <p>
+                      Trusted by teams at
+                      <strong class="text-green-700 font-semibold">Kia Center, Addition Financial, Orlando City Soccer, WorthA</strong>,
+                      and more.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </article>
+            <article
+              class="focus-card rounded-3xl bg-gray-900 text-white p-8 shadow-2xl ring-1 ring-purple-500/40"
+              data-focus-card
+              role="listitem"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div class="flex items-center gap-3 text-green-400 text-sm font-semibold uppercase tracking-[0.35em]">
+                <span class="text-lg">🛠️</span>
+                Core Platform
+              </div>
+              <h4 class="mt-4 text-2xl font-semibold">
+                PETE Platform · <span class="text-teal-200 font-semibold">Adaptive Intelligence Ecosystem</span>
+              </h4>
+              <p class="mt-4 text-sm text-gray-200">
+                An AI-enabled environment that assembles <span class="text-teal-200 font-semibold">personalized learning paths</span>, orchestrates
+                content delivery, and scales authoring through automated workflows.
+              </p>
+              <ul class="mt-6 space-y-3 text-sm text-gray-100">
+                <li class="flex gap-2">
+                  <span class="text-green-400">•</span>
+                  <span><span class="text-teal-200 font-semibold">Adaptive course generation</span> tailored to role, skill, and business goals</span>
+                </li>
+                <li class="flex gap-2">
+                  <span class="text-green-400">•</span>
+                  <span><span class="text-teal-200 font-semibold">Built-in measurement</span> maps progress to executive dashboards</span>
+                </li>
+                <li class="flex gap-2">
+                  <span class="text-green-400">•</span>
+                  <span>Designed to feel like a <span class="text-teal-200 font-semibold">guided product tour</span>, not a dense LMS</span>
+                </li>
+              </ul>
+            </article>
 
-          <article class="rounded-3xl bg-white p-8 shadow-lg ring-1 ring-green-100">
-            <div class="flex items-center gap-3 text-purple-600 text-sm font-semibold uppercase tracking-[0.35em]">
-              <span class="text-lg">🚀</span>
-              Strategic Expansion
-            </div>
-            <h4 class="mt-4 text-2xl font-semibold text-gray-900">PlutoLMS Acquisition · February 2025</h4>
-            <p class="mt-4 text-sm text-gray-600">Acquiring PlutoLMS added a mature corporate LMS and an international customer base, giving PETE immediate global reach.</p>
-            <ul class="mt-6 space-y-3 text-sm text-gray-600">
-              <li class="flex gap-2"><span class="text-purple-500">•</span> Accelerates enterprise credibility with proven infrastructure</li>
-              <li class="flex gap-2"><span class="text-purple-500">•</span> Complements PETE's AI layer with scalable delivery rails</li>
-              <li class="flex gap-2"><span class="text-purple-500">•</span> Positions PETE as an end-to-end learning transformation partner</li>
-            </ul>
-          </article>
+            <article
+              class="focus-card rounded-3xl bg-white p-8 shadow-lg ring-1 ring-green-100"
+              data-focus-card
+              role="listitem"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div class="flex items-center gap-3 text-purple-600 text-sm font-semibold uppercase tracking-[0.35em]">
+                <span class="text-lg">🚀</span>
+                Strategic Expansion
+              </div>
+              <h4 class="mt-4 text-2xl font-semibold text-gray-900">
+                PlutoLMS Acquisition · <span class="text-green-700 font-semibold">February 2025</span>
+              </h4>
+              <p class="mt-4 text-sm text-gray-600">
+                Acquiring PlutoLMS added a mature corporate LMS and an international customer base, giving PETE
+                <strong class="text-green-700 font-semibold">immediate global reach</strong>.
+              </p>
+              <ul class="mt-6 space-y-3 text-sm text-gray-600">
+                <li class="flex gap-2">
+                  <span class="text-purple-500">•</span>
+                  <span><span class="text-green-700 font-semibold">Accelerates enterprise credibility</span> with proven infrastructure</span>
+                </li>
+                <li class="flex gap-2">
+                  <span class="text-purple-500">•</span>
+                  <span>Complements PETE's AI layer with <span class="text-green-700 font-semibold">scalable delivery rails</span></span>
+                </li>
+                <li class="flex gap-2">
+                  <span class="text-purple-500">•</span>
+                  <span>Positions PETE as an <span class="text-green-700 font-semibold">end-to-end learning transformation partner</span></span>
+                </li>
+              </ul>
+            </article>
+          </div>
+          <button
+            class="carousel-arrow carousel-arrow-right"
+            type="button"
+            aria-label="Show next PETE insight"
+            data-focus-next
+          >
+            <span aria-hidden="true">&#8594;</span>
+          </button>
         </div>
       </div>
     </section>
