@@ -117,6 +117,93 @@ function initCardStack() {
 }
 
 /* ==========================================
+   FOCUS CARD CAROUSEL
+   ========================================== */
+
+/**
+ * Rotate the "Who is PETE" insights carousel
+ */
+function initFocusCarousel() {
+  const carousel = document.querySelector('[data-focus-carousel]');
+
+  if (!carousel) {
+    return;
+  }
+
+  const cards = Array.from(carousel.querySelectorAll('[data-focus-card]'));
+  const prevButton = carousel.querySelector('[data-focus-prev]');
+  const nextButton = carousel.querySelector('[data-focus-next]');
+
+  if (cards.length <= 1 || !prevButton || !nextButton) {
+    return;
+  }
+
+  let activeIndex = cards.findIndex(card => card.classList.contains('is-active'));
+  if (activeIndex < 0) {
+    activeIndex = 0;
+  }
+
+  function updateCards() {
+    const prevIndex = (activeIndex - 1 + cards.length) % cards.length;
+    const nextIndex = (activeIndex + 1) % cards.length;
+
+    cards.forEach((card, index) => {
+      card.classList.remove('is-active', 'is-left', 'is-right', 'is-hidden');
+
+      if (index === activeIndex) {
+        card.classList.add('is-active');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-hidden', 'false');
+      } else if (index === prevIndex) {
+        card.classList.add('is-left');
+        card.setAttribute('tabindex', '-1');
+        card.setAttribute('aria-hidden', 'true');
+      } else if (index === nextIndex) {
+        card.classList.add('is-right');
+        card.setAttribute('tabindex', '-1');
+        card.setAttribute('aria-hidden', 'true');
+      } else {
+        card.classList.add('is-hidden');
+        card.setAttribute('tabindex', '-1');
+        card.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  function move(direction) {
+    activeIndex = (activeIndex + direction + cards.length) % cards.length;
+    updateCards();
+    cards[activeIndex].focus({ preventScroll: true });
+  }
+
+  prevButton.addEventListener('click', () => move(-1));
+  nextButton.addEventListener('click', () => move(1));
+
+  carousel.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      move(-1);
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      move(1);
+    }
+  });
+
+  cards.forEach((card, index) => {
+    card.addEventListener('focus', () => {
+      if (index !== activeIndex) {
+        activeIndex = index;
+        updateCards();
+      }
+    });
+  });
+
+  updateCards();
+}
+
+/* ==========================================
    CHART INITIALIZATION
    ========================================== */
 
@@ -404,6 +491,7 @@ function initProgressBars() {
  */
 document.addEventListener('DOMContentLoaded', () => {
   initCardStack();
+  initFocusCarousel();
   initCharts();
   initAccordions();
   initProgressBars();
