@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438 108" role="img" aria-labelledby="title desc">
+  <title id="title">PETE Learning logo</title>
+  <desc id="desc">Green geometric cube icon followed by the word PETE in dark navy text.</desc>
+  <g fill="none" fill-rule="evenodd">
+    <polygon fill="#00B589" points="80 6 150 32 111 52 41 26"/>
+    <polygon fill="#00A27A" points="41 26 111 52 111 102 41 76"/>
+    <polygon fill="#00916C" points="111 52 150 32 150 82 111 102"/>
+    <g fill="#0D1525" font-family="'Poppins', 'Segoe UI', sans-serif" font-size="80" font-weight="600">
+      <text x="190" y="80">PETE</text>
+    </g>
+  </g>
+</svg>
