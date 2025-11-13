@@ -341,14 +341,17 @@ body {
   position: relative;
   width: 100%;
   max-width: 520px;
-  height: 600px;
+  height: clamp(520px, 70vh, 640px);
   margin: auto;
 }
 
 .process-card {
   position: absolute;
+  top: 0;
+  left: 4%;
   width: 92%;
-  height: 500px;
+  height: calc(100% - 80px);
+  min-height: 480px;
   padding: 0;
   background: #fff;
   border: 1px solid var(--pete-gray-medium);
@@ -357,7 +360,6 @@ body {
               0 10px 10px -5px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  left: 4%;
   will-change: transform, opacity;
   overflow: hidden;
 }
@@ -509,53 +511,6 @@ body {
   transform: scale(1.25);
 }
 
-.card-stack-container.card-stack-mobile {
-  max-width: 100%;
-  height: auto;
-}
-
-.card-stack-container.card-stack-mobile .process-card {
-  position: relative;
-  left: 0;
-  width: 100%;
-  height: auto;
-  transform: none !important;
-  margin-bottom: 1.75rem;
-  cursor: default;
-}
-
-.card-stack-container.card-stack-mobile .process-card:last-child {
-  margin-bottom: 0;
-}
-
-.card-stack-container.card-stack-mobile .card-header {
-  padding: 1.25rem 1.5rem;
-  min-height: auto;
-}
-
-.card-stack-container.card-stack-mobile .card-body {
-  padding: 1.5rem;
-}
-
-.card-stack-container.card-stack-mobile .card-number {
-  width: 42px;
-  height: 42px;
-  font-size: 1.1rem;
-}
-
-.card-stack-container.card-stack-mobile .card-subtitle {
-  font-size: 0.75rem;
-  padding: 0.35rem 0.85rem;
-}
-
-.card-stack-container.card-stack-mobile .card-title {
-  font-size: 1.5rem;
-}
-
-.card-stack-container.card-stack-mobile + .progress-dots {
-  display: none !important;
-}
-
 /* Dev Output (hidden by default)
    ========================================== */
 #dev-test-output {
@@ -698,21 +653,15 @@ body {
 
 @media (max-width: 768px) {
   .card-stack-container {
-    max-width: 100%;
-    height: auto;
+    max-width: min(520px, 92vw);
+    height: clamp(520px, 120vw, 680px);
   }
 
   .card-stack-container .process-card {
-    position: relative;
-    left: 0;
-    width: 100%;
-    height: auto;
-    transform: none !important;
-    margin-bottom: 1.75rem;
-  }
-
-  .card-stack-container .process-card:last-child {
-    margin-bottom: 0;
+    left: 4%;
+    width: 92%;
+    height: calc(100% - 96px);
+    min-height: 520px;
   }
 
   .visibility-chart-container {

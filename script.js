@@ -27,18 +27,8 @@ function initCardStack() {
   }
 
   const dots = Array.from(dotsWrap.querySelectorAll('.progress-dot'));
-  const mobileQuery = window.matchMedia('(max-width: 768px)');
   let cards = Array.from(stack.querySelectorAll('.process-card'));
-  let interactive = false;
-  const pendingTimeouts = new Set();
-
-  function clearCardStyles(targetCards) {
-    targetCards.forEach(card => {
-      card.style.transform = '';
-      card.style.zIndex = '';
-      card.classList.remove('exit', 'active');
-    });
-  }
+  let isAnimating = false;
 
   function layout() {
     cards.forEach((card, idx) => {
@@ -60,16 +50,20 @@ function initCardStack() {
       return;
     }
 
+    if (isAnimating) {
+      return;
+    }
+
+    isAnimating = true;
+
     topCard.classList.add('exit');
 
-    const timeoutId = window.setTimeout(() => {
+    window.setTimeout(() => {
       cards.push(cards.shift());
       stack.appendChild(topCard);
       layout();
-      pendingTimeouts.delete(timeoutId);
-    }, 300);
-
-    pendingTimeouts.add(timeoutId);
+      isAnimating = false;
+    }, 360);
   }
 
   function handleCardClick(event) {
@@ -98,86 +92,28 @@ function initCardStack() {
     const rotateStep = () => {
       if (rotations++ < position) {
         rotate();
-        const timeoutId = window.setTimeout(() => {
-          pendingTimeouts.delete(timeoutId);
-          rotateStep();
-        }, 340);
-
-        pendingTimeouts.add(timeoutId);
+        window.setTimeout(rotateStep, 420);
       }
     };
     rotateStep();
   }
 
-  function teardownInteractive() {
-    const cardElements = Array.from(stack.querySelectorAll('.process-card'));
-
-    pendingTimeouts.forEach(timeoutId => {
-      window.clearTimeout(timeoutId);
-    });
-    pendingTimeouts.clear();
-
-    cardElements.forEach(card => {
-      card.removeEventListener('click', handleCardClick);
-      card.removeEventListener('keydown', handleCardKeydown);
-      card.style.cursor = '';
-    });
-
-    clearCardStyles(cardElements);
-
-    dots.forEach(dot => {
-      dot.classList.remove('active');
-      dot.removeEventListener('click', handleDotClick);
-    });
-
-    stack.classList.add('card-stack-mobile');
-    dotsWrap.style.display = 'none';
-    dotsWrap.setAttribute('aria-hidden', 'true');
-    interactive = false;
-  }
-
-  function setupInteractive() {
-    cards = Array.from(stack.querySelectorAll('.process-card'));
-
-    cards.forEach((card, index) => {
-      if (!card.dataset.step) {
-        card.dataset.step = index;
-      }
-      card.addEventListener('click', handleCardClick);
-      card.addEventListener('keydown', handleCardKeydown);
-      card.style.cursor = 'pointer';
-    });
-
-    dots.forEach(dot => {
-      dot.addEventListener('click', handleDotClick);
-    });
-
-    stack.classList.remove('card-stack-mobile');
-    dotsWrap.style.display = 'flex';
-    dotsWrap.setAttribute('aria-hidden', 'false');
-    interactive = true;
-    layout();
-  }
-
-  function handleBreakpointChange(event) {
-    if (event.matches) {
-      teardownInteractive();
-    } else if (!interactive) {
-      setupInteractive();
+  cards.forEach((card, index) => {
+    if (!card.dataset.step) {
+      card.dataset.step = index;
     }
-  }
+    card.addEventListener('click', handleCardClick);
+    card.addEventListener('keydown', handleCardKeydown);
+    card.style.cursor = 'pointer';
+  });
 
-  if (typeof mobileQuery.addEventListener === 'function') {
-    mobileQuery.addEventListener('change', handleBreakpointChange);
-  } else if (typeof mobileQuery.addListener === 'function') {
-    mobileQuery.addListener(handleBreakpointChange);
-  }
+  dots.forEach(dot => {
+    dot.addEventListener('click', handleDotClick);
+  });
 
-  if (mobileQuery.matches) {
-    teardownInteractive();
-  } else {
-    setupInteractive();
-  }
+  dotsWrap.style.display = 'flex';
+  dotsWrap.setAttribute('aria-hidden', 'false');
+  layout();
 }
 
 /* ==========================================
