@@ -1,158 +1,95 @@
 # PETE Learning UX Case Study
 
-An interactive case study website showcasing the UX design process for transforming PETE Learning from a "generic AI tool" into an invaluable, high-ROI platform.
+A narrative-first UX case study that shows how PETE Learning repositioned its AI training platform from a generic tool into an invaluable talent engine. The repo contains both the long-form story page and the clickable prototype that proves the redesigned experience.
 
-## 🎯 Overview
+## 🎯 What’s Inside
 
-This case study demonstrates how strategic UX research and design transformed PETE Learning's messaging from selling a generic 25% improvement to showcasing their true 125% growth potential. The site features:
+- **Story-driven landing page (`index.html`)** – Walks through the insight, process, solution, and takeaway pillars with bold typography, animated cards, and responsive layouts.
+- **High-fidelity prototype (`prototype.html`)** – A Wise-inspired product simulation with guided navigation, a scheduling modal, and polished success state.
+- **Custom theming (`styles.css`)** – Layered gradients, card treatments, and hover states that highlight the three conclusion pillars.
+- **Interaction logic (`script.js`)** – Powers the rotating process stack, progress dots, and other motion cues while respecting reduced-motion preferences.
 
-- **Interactive card stack** for process walkthrough
-- **Data visualizations** using Chart.js
-- **Accordion components** for solution details
-- **Embedded prototype demo** in an iframe
-- **Smooth animations** and responsive design
+## 🧭 Page Highlights
 
-## 🚀 Quick Start
+### Hero & Positioning
+- 20-hour research narrative distilled into a two-minute pitch.
+- Primary CTA anchors visitors to the live prototype demo.
 
-### Option 1: Python Server (Recommended)
+### Process Card Stack
+- Interactive stack rotates automatically and via click or keyboard.
+- Progress dots mirror the current step for quick orientation.
+
+### Visibility & Messaging Story
+- Narrative-driven bar layout illustrates PETE’s low awareness against well-known competitors.
+- Before/after messaging cards showcase the shift from “faster courses” to “invaluable employees,” complete with supporting visuals.
+
+### Takeaway Pillars
+- Enlarged gradient icon badges and scannable bold lead-ins emphasize each conclusion theme: Intrepid & Authentic, Outcome-First Proof, and Delightfully Simple UX.
+- Independent CTA sits beneath the grid so the action isn’t trapped in a card.
+
+## 🧪 Prototype Highlights
+
+The embedded `prototype.html` mirrors the final experience in a standalone page:
+
+- **Guided landing flow** with sticky navigation, solution storytelling, and social-proof moments.
+- **Schedule-a-demo modal** featuring:
+  - Available dates rendered in a responsive calendar.
+  - Vertically stacked time slots (maximum of five) for quick scanning.
+  - Confirmation state with Add to Calendar download and centered icon/text alignment.
+- **Form guardrails** such as inline validation, loading states, and success transitions to demonstrate polish end-to-end.
+
+## 🚀 Getting Started
+
+Serve the files locally to preserve relative asset paths and the prototype iframe:
+
 ```bash
+# From the repo root
 python3 -m http.server 8000
 ```
-Then open: `http://localhost:8000/index.html`
 
-### Option 2: Live Server with Auto-Reload
-```bash
-npx live-server
-```
+Then open `http://localhost:8000/index.html` for the case study page or `http://localhost:8000/prototype.html` for the full-screen prototype.
 
-### Option 3: Direct File
-Simply open `index.html` in your browser.
+Alternative: use any static HTTP server (e.g., `npx serve`, VS Code Live Server).
 
 ## 📁 Project Structure
 
 ```
 pete-ux-caseStudy/
-├── index.html      # Main HTML file (clean, semantic structure)
-├── styles.css      # All custom styles and animations
-├── script.js       # Interactive components and Chart.js
-└── README.md       # This file
+├── index.html                # Story-driven case study page
+├── prototype.html            # High-fidelity product simulation
+├── styles.css                # Custom gradients, layout helpers, and component styling
+├── script.js                 # Card stack rotation + shared interaction helpers
+├── PETE_Ad.png               # “Before” ad creative
+├── Stop Generic Training..png# “After” campaign creative
+└── README.md                 # Project documentation
 ```
 
-## ✨ Features
+## 🎨 Customization Notes
 
-### Interactive Components
+- **Update process steps:** Edit the `.process-card` markup inside `index.html` to change copy or add cards (ensure matching progress dots).
+- **Tweak pillar copy:** Each takeaway pillar lives near the end of `index.html`; adjust bold lead-ins to refine the scan-friendly messaging.
+- **Modify time slots:** In `prototype.html`, change the `timeSlots` array inside the `loadTimeSlots()` function to alter available meetings.
+- **Adjust theming:** Global colors and shadows live in `styles.css` near the top; Tailwind utilities supplement bespoke design layers.
 
-1. **Card Stack Rotation**
-   - Auto-rotates every 4 seconds
-   - Click top card to advance manually
-   - Click progress dots to jump to specific card
-   - Keyboard accessible (Enter/Space)
-   - Pauses on hover
+## ♿ Accessibility & Responsiveness
 
-2. **Data Visualizations**
-   - Bar chart: Talent mastery comparison
-   - Line chart: Market trends over time
-   - Doughnut chart: Keyword demand analysis
+- Semantic HTML structure with headings that progress logically through the story.
+- Keyboard and screen-reader support for the process stack, modal dialog, and buttons.
+- `prefers-reduced-motion` respected for animations and transitions.
+- Fully responsive layouts from mobile through desktop using Tailwind’s utility classes plus custom breakpoints.
 
-3. **Accordions**
-   - ARIA-compliant for accessibility
-   - Smooth height transitions
-   - Animated progress bars inside
+## 🛠️ Tech Stack
 
-4. **Embedded Prototype**
-   - Full interactive demo in iframe
-   - Browser-style chrome with traffic lights
-   - Toggle between generic vs. PETE training
-
-### Design System
-
-**Colors:**
-- Purple: `#5f4bb6` (Primary brand)
-- Green: `#34c759` (Success/Growth)
-- Red: `#ef476f` (Problems/Baseline)
-- Grays: Various shades for UI
-
-**Typography:**
-- Font: Poppins (Google Fonts)
-- Weights: 400, 500, 600, 700, 800
-
-**Animations:**
-- Respects `prefers-reduced-motion`
-- Smooth card transitions
-- Floating CTA button
-- Pulsing glow effects
-
-## 🎨 Customization
-
-### Change Brand Colors
-Edit CSS variables in `styles.css`:
-```css
-:root {
-  --pete-purple: #5f4bb6;
-  --pete-green: #34c759;
-  /* ... */
-}
-```
-
-### Adjust Animation Speed
-In `script.js`, change the auto-rotate interval:
-```javascript
-let autoRotateTimer = setInterval(rotate, 4000); // 4 seconds
-```
-
-### Modify Charts
-Chart data is in `script.js` under `initCharts()` function.
-
-## ♿ Accessibility
-
-- Semantic HTML5 structure
-- ARIA labels on interactive elements
-- Keyboard navigation support
-- Focus states on all interactive elements
-- Respects `prefers-reduced-motion`
-- Proper heading hierarchy
-
-## 📱 Responsive Design
-
-- Mobile-first approach with Tailwind CSS
-- Breakpoints: sm (640px), md (768px), lg (1024px)
-- Stacks vertically on mobile
-- Touch-friendly tap targets
-
-## 🛠️ Technologies
-
-- **HTML5** - Semantic markup
-- **CSS3** - Custom properties, animations, Grid/Flexbox
-- **JavaScript (ES6+)** - Vanilla JS, no frameworks
-- **Tailwind CSS** - Utility-first CSS framework (CDN)
-- **Chart.js** - Data visualizations (CDN)
-- **Google Fonts** - Poppins typeface
-
-## 📊 Performance
-
-- Minimal dependencies (only Tailwind & Chart.js from CDN)
-- Optimized CSS with will-change for animations
-- Lazy-loaded charts
-- External CSS/JS for better caching
-
-## 🤝 Contributing
-
-This is a portfolio piece, but suggestions are welcome! To experiment:
-
-1. Clone or fork the repo
-2. Make changes to HTML, CSS, or JS
-3. Refresh browser to see updates
-4. Commit your improvements
-
-## 📝 License
-
-This case study is for portfolio purposes. Feel free to use the code structure and patterns for your own projects.
+- HTML5 + Tailwind CDN for rapid layout iteration.
+- Vanilla JavaScript for interactions (no build tooling required).
+- CSS3 for gradients, shadows, and custom component styling.
+- Chart.js is loaded for future data visualizations but currently unused in the live markup.
 
 ## 👤 Author
 
-Created as a UX case study demonstration for PETE Learning.
+Created as a UX case study demonstration for PETE Learning, highlighting storytelling, UX writing, and product polish.
 
 ---
 
-**Live Demo:** Open `index.html` in your browser
-**View Code:** All files are commented and organized for easy reading
+**Live Demo:** Open `index.html` locally or host on any static server.
+**Prototype:** Explore `prototype.html` for the interactive scheduling flow.
